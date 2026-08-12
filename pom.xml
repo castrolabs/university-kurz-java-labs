@@ -80,6 +80,9 @@
         <module>java-concepts/array-deque</module>
         <module>java-concepts/array-deque-solution</module>
 
+        <module>jvm-concepts/class-file-structure</module>
+        <module>jvm-concepts/class-file-structure-solution</module>
+
         <module>testing-concepts/junit-5-fundamentals</module>
         <module>testing-concepts/junit-5-fundamentals-solution</module>
         <module>testing-concepts/test-doubles-stubs-and-mocking</module>
