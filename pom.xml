@@ -18,6 +18,26 @@
         <module>java-minute/array-equality-solution</module>
         <module>spring-concepts/spring-security-user-management</module>
         <module>spring-concepts/spring-security-user-management-solution</module>
+        <module>spring-concepts/spring-boot-autoconfiguration</module>
+        <module>spring-concepts/spring-boot-autoconfiguration-solution</module>
+        <module>spring-concepts/spring-boot-configuration-properties</module>
+        <module>spring-concepts/spring-boot-configuration-properties-solution</module>
+        <module>spring-concepts/spring-boot-rest-controllers</module>
+        <module>spring-concepts/spring-boot-rest-controllers-solution</module>
+        <module>spring-concepts/spring-mvc-request-handling</module>
+        <module>spring-concepts/spring-mvc-request-handling-solution</module>
+        <module>spring-concepts/spring-mvc-bean-validation</module>
+        <module>spring-concepts/spring-mvc-bean-validation-solution</module>
+        <module>spring-concepts/spring-data-jpa-repositories</module>
+        <module>spring-concepts/spring-data-jpa-repositories-solution</module>
+        <module>spring-concepts/spring-jdbc-persistence-with-jdbctemplate</module>
+        <module>spring-concepts/spring-jdbc-persistence-with-jdbctemplate-solution</module>
+        <module>spring-concepts/spring-security-http-basic-and-form-login</module>
+        <module>spring-concepts/spring-security-http-basic-and-form-login-solution</module>
+        <module>spring-concepts/spring-security-authorization-authorities-and-roles</module>
+        <module>spring-concepts/spring-security-authorization-authorities-and-roles-solution</module>
+        <module>spring-concepts/spring-security-password-encoding</module>
+        <module>spring-concepts/spring-security-password-encoding-solution</module>
 
         <module>java-concepts/iterator-vs-iterable</module>
         <module>java-concepts/iterator-vs-iterable-solution</module>
@@ -79,6 +99,26 @@
         <module>java-concepts/priority-queue-solution</module>
         <module>java-concepts/array-deque</module>
         <module>java-concepts/array-deque-solution</module>
+        <module>java-concepts/optional-correct-usage</module>
+        <module>java-concepts/optional-correct-usage-solution</module>
+        <module>java-concepts/equals-hashcode-and-tostring-contracts</module>
+        <module>java-concepts/equals-hashcode-and-tostring-contracts-solution</module>
+        <module>java-concepts/concurrent-collections-and-compound-actions</module>
+        <module>java-concepts/concurrent-collections-and-compound-actions-solution</module>
+        <module>java-concepts/deadlock-lock-ordering-and-avoidance</module>
+        <module>java-concepts/deadlock-lock-ordering-and-avoidance-solution</module>
+        <module>java-concepts/task-cancellation-and-interruption</module>
+        <module>java-concepts/task-cancellation-and-interruption-solution</module>
+        <module>java-concepts/blocking-queues-and-producer-consumer</module>
+        <module>java-concepts/blocking-queues-and-producer-consumer-solution</module>
+        <module>java-concepts/configuring-thread-pool-executor</module>
+        <module>java-concepts/configuring-thread-pool-executor-solution</module>
+        <module>java-concepts/completablefuture-composition</module>
+        <module>java-concepts/completablefuture-composition-solution</module>
+        <module>java-concepts/serialization-risks-and-safer-alternatives</module>
+        <module>java-concepts/serialization-risks-and-safer-alternatives-solution</module>
+        <module>java-concepts/java-time-dates-and-durations</module>
+        <module>java-concepts/java-time-dates-and-durations-solution</module>
 
         <module>jvm-concepts/class-file-structure</module>
         <module>jvm-concepts/class-file-structure-solution</module>
@@ -97,6 +137,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>4.1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
