@@ -38,6 +38,26 @@
         <module>spring-concepts/spring-security-authorization-authorities-and-roles-solution</module>
         <module>spring-concepts/spring-security-password-encoding</module>
         <module>spring-concepts/spring-security-password-encoding-solution</module>
+        <module>spring-concepts/spring-boot-custom-configuration-properties</module>
+        <module>spring-concepts/spring-boot-custom-configuration-properties-solution</module>
+        <module>spring-concepts/spring-boot-profiles</module>
+        <module>spring-concepts/spring-boot-profiles-solution</module>
+        <module>spring-concepts/spring-boot-actuator-endpoints</module>
+        <module>spring-concepts/spring-boot-actuator-endpoints-solution</module>
+        <module>spring-concepts/spring-security-authorization-matcher-methods</module>
+        <module>spring-concepts/spring-security-authorization-matcher-methods-solution</module>
+        <module>spring-concepts/spring-security-cors-configuration</module>
+        <module>spring-concepts/spring-security-cors-configuration-solution</module>
+        <module>spring-concepts/spring-security-csrf-protection</module>
+        <module>spring-concepts/spring-security-csrf-protection-solution</module>
+        <module>spring-concepts/spring-security-testing-mock-users-and-authentication</module>
+        <module>spring-concepts/spring-security-testing-mock-users-and-authentication-solution</module>
+        <module>spring-concepts/spring-webclient-reactive-consumption</module>
+        <module>spring-concepts/spring-webclient-reactive-consumption-solution</module>
+        <module>spring-concepts/spring-kafka-messaging</module>
+        <module>spring-concepts/spring-kafka-messaging-solution</module>
+        <module>spring-concepts/spring-data-rest-repositories</module>
+        <module>spring-concepts/spring-data-rest-repositories-solution</module>
 
         <module>java-concepts/iterator-vs-iterable</module>
         <module>java-concepts/iterator-vs-iterable-solution</module>
@@ -119,6 +139,26 @@
         <module>java-concepts/serialization-risks-and-safer-alternatives-solution</module>
         <module>java-concepts/java-time-dates-and-durations</module>
         <module>java-concepts/java-time-dates-and-durations-solution</module>
+        <module>java-concepts/concurrency-utilities-executors-and-synchronizers</module>
+        <module>java-concepts/concurrency-utilities-executors-and-synchronizers-solution</module>
+        <module>java-concepts/fork-join-framework</module>
+        <module>java-concepts/fork-join-framework-solution</module>
+        <module>java-concepts/structured-concurrency</module>
+        <module>java-concepts/structured-concurrency-solution</module>
+        <module>java-concepts/scoped-values</module>
+        <module>java-concepts/scoped-values-solution</module>
+        <module>java-concepts/text-blocks</module>
+        <module>java-concepts/text-blocks-solution</module>
+        <module>java-concepts/switch-expressions</module>
+        <module>java-concepts/switch-expressions-solution</module>
+        <module>java-concepts/sequenced-collections</module>
+        <module>java-concepts/sequenced-collections-solution</module>
+        <module>java-concepts/exact-arithmetic-with-bigdecimal-and-biginteger</module>
+        <module>java-concepts/exact-arithmetic-with-bigdecimal-and-biginteger-solution</module>
+        <module>java-concepts/json-processing-in-java</module>
+        <module>java-concepts/json-processing-in-java-solution</module>
+        <module>java-concepts/static-factory-methods-and-builder-pattern</module>
+        <module>java-concepts/static-factory-methods-and-builder-pattern-solution</module>
 
         <module>jvm-concepts/class-file-structure</module>
         <module>jvm-concepts/class-file-structure-solution</module>
