@@ -167,6 +167,26 @@
         <module>testing-concepts/junit-5-fundamentals-solution</module>
         <module>testing-concepts/test-doubles-stubs-and-mocking</module>
         <module>testing-concepts/test-doubles-stubs-and-mocking-solution</module>
+        <module>testing-concepts/reusing-test-fixtures-and-parameterized-tests</module>
+        <module>testing-concepts/reusing-test-fixtures-and-parameterized-tests-solution</module>
+        <module>testing-concepts/four-pillars-of-a-good-unit-test</module>
+        <module>testing-concepts/four-pillars-of-a-good-unit-test-solution</module>
+        <module>testing-concepts/observable-behavior-and-mock-fragility</module>
+        <module>testing-concepts/observable-behavior-and-mock-fragility-solution</module>
+        <module>testing-concepts/unit-testing-anti-patterns</module>
+        <module>testing-concepts/unit-testing-anti-patterns-solution</module>
+        <module>testing-concepts/spring-rest-api-testing-mockmvc</module>
+        <module>testing-concepts/spring-rest-api-testing-mockmvc-solution</module>
+        <module>testing-concepts/spring-boot-testing</module>
+        <module>testing-concepts/spring-boot-testing-solution</module>
+        <module>testing-concepts/spring-testcontext-and-springextension</module>
+        <module>testing-concepts/spring-testcontext-and-springextension-solution</module>
+        <module>testing-concepts/testing-jdbc-and-spring-jdbc</module>
+        <module>testing-concepts/testing-jdbc-and-spring-jdbc-solution</module>
+        <module>testing-concepts/testing-jpa-hibernate</module>
+        <module>testing-concepts/testing-jpa-hibernate-solution</module>
+        <module>testing-concepts/database-testing-prerequisites-and-transactions</module>
+        <module>testing-concepts/database-testing-prerequisites-and-transactions-solution</module>
     </modules>
 
     <properties>
