@@ -111,6 +111,8 @@
         <module>java-concepts/linked-list-solution</module>
         <module>java-concepts/hash-set</module>
         <module>java-concepts/hash-set-solution</module>
+        <module>java-concepts/hash-map</module>
+        <module>java-concepts/hash-map-solution</module>
         <module>java-concepts/linked-hash-set</module>
         <module>java-concepts/linked-hash-set-solution</module>
         <module>java-concepts/tree-set</module>
