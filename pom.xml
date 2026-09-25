@@ -189,6 +189,8 @@
         <module>testing-concepts/testing-jpa-hibernate-solution</module>
         <module>testing-concepts/database-testing-prerequisites-and-transactions</module>
         <module>testing-concepts/database-testing-prerequisites-and-transactions-solution</module>
+        <module>kubernetes-concepts/projected-volumes-combining-multiple-secrets</module>
+        <module>kubernetes-concepts/projected-volumes-combining-multiple-secrets-solution</module>
     </modules>
 
     <properties>

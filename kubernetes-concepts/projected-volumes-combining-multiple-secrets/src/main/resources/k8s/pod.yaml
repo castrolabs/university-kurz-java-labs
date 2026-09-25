@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      projected:
+        sources:
+          # TODO-00: Both .env files define DB_USER and DB_PASSWORD. Run the tests first and see which
+          #          tenant's values end up in /run/secrets. Then use `items` to project every key of
+          #          tenant-alpha under alpha/ (e.g. key DB_PASSWORD -> path alpha/DB_PASSWORD).
+          - secret:
+              name: tenant-alpha
+          # TODO-01: Do the same for tenant-beta under beta/. Remember that `items` is an allow-list:
+          #          a key you do not list never reaches the volume.
+          - secret:
+              name: tenant-beta

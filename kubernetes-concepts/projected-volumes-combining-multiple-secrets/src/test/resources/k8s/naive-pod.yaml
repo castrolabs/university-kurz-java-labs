@@ -1,0 +1,23 @@
+# The "obvious" projection: both Secrets straight into the same directory, no items.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: naive
+  namespace: example
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      projected:
+        sources:
+          - secret:
+              name: tenant-alpha
+          - secret:
+              name: tenant-beta

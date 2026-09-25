@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      projected:
+        sources:
+          - secret:
+              name: tenant-alpha
+              items:
+                - key: DB_USER
+                  path: alpha/DB_USER
+                - key: DB_PASSWORD
+                  path: alpha/DB_PASSWORD
+                - key: ALPHA_API_KEY
+                  path: alpha/ALPHA_API_KEY
+          - secret:
+              name: tenant-beta
+              items:
+                - key: DB_USER
+                  path: beta/DB_USER
+                - key: DB_PASSWORD
+                  path: beta/DB_PASSWORD
+                - key: BETA_WEBHOOK_TOKEN
+                  path: beta/BETA_WEBHOOK_TOKEN
