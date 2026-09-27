@@ -279,6 +279,8 @@
         <module>kubernetes-concepts/kubectl-essentials-solution</module>
         <module>kubernetes-concepts/node-capacity-allocatable-and-memory-budget</module>
         <module>kubernetes-concepts/node-capacity-allocatable-and-memory-budget-solution</module>
+        <module>kubernetes-concepts/lets-encrypt-http01-vs-dns01</module>
+        <module>kubernetes-concepts/lets-encrypt-http01-vs-dns01-solution</module>
     </modules>
 
     <properties>

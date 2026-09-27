@@ -1,0 +1,13 @@
+# Given: DNS for the lab's domains. k3s's CoreDNS loads extra server blocks from this ConfigMap; this one
+# answers for shop.lab with the ingress controller's address (the test replaces TRAEFIK_IP), like the
+# public DNS records of a real domain. Both cert-manager's self check and the CA use it.
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: coredns-custom, namespace: kube-system}
+data:
+  shop.server: |
+    shop.lab:53 {
+      hosts {
+        TRAEFIK_IP shop.lab www.shop.lab api.shop.lab
+      }
+    }
