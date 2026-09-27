@@ -253,6 +253,8 @@
         <module>kubernetes-concepts/metrics-server-and-kubectl-top-solution</module>
         <module>kubernetes-concepts/managed-runtime-memory-in-containers</module>
         <module>kubernetes-concepts/managed-runtime-memory-in-containers-solution</module>
+        <module>kubernetes-concepts/ingress-controllers-and-gateway-api</module>
+        <module>kubernetes-concepts/ingress-controllers-and-gateway-api-solution</module>
     </modules>
 
     <properties>

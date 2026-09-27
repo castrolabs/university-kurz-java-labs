@@ -1,0 +1,12 @@
+# Given: turns on Traefik's Gateway API provider (k3s ships the CRDs, but the provider is off by default).
+# k3s applies every file in /var/lib/rancher/k3s/server/manifests when it starts.
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    providers:
+      kubernetesGateway:
+        enabled: true

@@ -1,0 +1,41 @@
+# shop.lab through an Ingress (handled by Traefik, the cluster's default IngressClass).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop
+  namespace: web
+spec:
+  rules:
+    - host: shop.lab
+      http:
+        paths:
+          - path: /
+            pathType: Prefix   # "/" and everything below it; Exact matches "/" only
+            backend:
+              service: {name: shop, port: {number: 8080}}
+---
+# The platform's Gateway only accepts routes from its own namespace (allowedRoutes: Same), so the team
+# runs its own Gateway on the same class. With Traefik, a listener's port is one of its entrypoints
+# (8000 is "web", which the traefik Service exposes on port 80).
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: web
+  namespace: web
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - {name: web, port: 8000, protocol: HTTP}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: blog
+  namespace: web
+spec:
+  parentRefs:
+    - {name: web}
+  hostnames: [blog.lab]
+  rules:
+    - backendRefs:
+        - {name: blog, port: 8080}
