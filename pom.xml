@@ -231,6 +231,8 @@
         <module>kubernetes-concepts/services-clusterip-and-nodeport-solution</module>
         <module>kubernetes-concepts/deleting-pods-scaling-and-stuck-namespaces</module>
         <module>kubernetes-concepts/deleting-pods-scaling-and-stuck-namespaces-solution</module>
+        <module>kubernetes-concepts/rollouts-restart-history-and-rollback</module>
+        <module>kubernetes-concepts/rollouts-restart-history-and-rollback-solution</module>
     </modules>
 
     <properties>

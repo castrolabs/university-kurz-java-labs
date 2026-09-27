@@ -1,0 +1,36 @@
+# Given: revision 1 of the app. The test then rolls out v2 (with a bug) and v3 (which never starts).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+data:
+  GREETING: "hello"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  annotations:
+    kubernetes.io/change-cause: "v1: first release"
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - name: web
+          image: busybox:1.37
+          command: ["sh", "-c", "mkdir -p /www && echo \"$VERSION $GREETING\" > /www/index.html && exec httpd -f -p 8080 -h /www"]
+          env:
+            - {name: VERSION, value: "v1"}
+          envFrom:
+            - configMapRef: {name: web-config}
+          readinessProbe:
+            httpGet: {path: /, port: 8080}
+            periodSeconds: 1
