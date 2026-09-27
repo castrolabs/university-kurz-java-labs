@@ -1,0 +1,13 @@
+namespace: example
+resources:
+  - ../../base
+configMapGenerator:
+  - name: app-config
+    behavior: merge          # add and override keys, keep LOG_LEVEL from the base
+    literals:
+      - GREETING=hi-staging
+      - ENVIRONMENT=staging
+secretGenerator:
+  - name: db-credentials
+    envs:
+      - db.env               # read at build time; keep it out of Git

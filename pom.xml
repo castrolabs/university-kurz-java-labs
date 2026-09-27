@@ -205,6 +205,8 @@
         <module>kubernetes-concepts/deployment-strategies-rollingupdate-vs-recreate-solution</module>
         <module>kubernetes-concepts/jobs-and-restart-policy</module>
         <module>kubernetes-concepts/jobs-and-restart-policy-solution</module>
+        <module>kubernetes-concepts/kustomize-generators-and-hash-suffix</module>
+        <module>kubernetes-concepts/kustomize-generators-and-hash-suffix-solution</module>
     </modules>
 
     <properties>

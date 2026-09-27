@@ -1,0 +1,10 @@
+namespace: example
+resources:
+  - ../../base
+  - secret.yaml
+# TODO-01: Replace this patch with a configMapGenerator entry for app-config that merges
+#          GREETING=hi-staging and ENVIRONMENT=staging into the base values.
+patches:
+  - path: config-patch.yaml
+# TODO-02: secret.yaml commits a password to Git. Delete it and generate db-credentials from db.env
+#          (this file stays out of Git in a real project).

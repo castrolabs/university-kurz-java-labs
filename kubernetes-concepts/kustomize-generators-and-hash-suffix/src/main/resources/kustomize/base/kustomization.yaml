@@ -1,0 +1,5 @@
+# TODO-00: A plain ConfigMap keeps the same name forever, so changing a value never restarts the Pods.
+#          Delete configmap.yaml and generate app-config here with a configMapGenerator (same two keys).
+resources:
+  - deployment.yaml
+  - configmap.yaml

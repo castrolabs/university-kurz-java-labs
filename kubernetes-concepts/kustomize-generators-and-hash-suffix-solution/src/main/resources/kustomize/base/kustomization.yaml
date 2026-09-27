@@ -1,0 +1,8 @@
+resources:
+  - deployment.yaml
+# Generated: the name gets a hash of the content (app-config-<hash>) and every reference is rewritten.
+configMapGenerator:
+  - name: app-config
+    literals:
+      - GREETING=hello
+      - LOG_LEVEL=info
