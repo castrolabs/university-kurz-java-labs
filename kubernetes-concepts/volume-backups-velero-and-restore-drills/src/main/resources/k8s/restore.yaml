@@ -1,0 +1,9 @@
+# The restore drill: prove the backup can be restored, while production keeps running.
+# TODO-01: Restore it next to production, into the namespace shop-drill, not over shop.
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: shop-drill
+  namespace: velero
+spec:
+  backupName: shop-backup

@@ -1,0 +1,12 @@
+# The restore drill: prove the backup can be restored, while production keeps running.
+# namespaceMapping restores everything under another name; restoring into shop itself would skip the
+# objects that already exist (or, after a real loss, overwrite what is there).
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: shop-drill
+  namespace: velero
+spec:
+  backupName: shop-backup
+  namespaceMapping:
+    shop: shop-drill

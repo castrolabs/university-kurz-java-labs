@@ -1,0 +1,12 @@
+# The shop's backup, as a Velero Backup object (the same thing "velero backup create" makes).
+# Without volume data a backup holds only definitions: a restore recreates an empty PersistentVolume.
+# defaultVolumesToFsBackup copies every Pod volume's files to the object store with the node agent
+# (kopia); the alternative is CSI snapshots, when the storage supports them.
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: shop-backup
+  namespace: velero
+spec:
+  includedNamespaces: [shop]
+  defaultVolumesToFsBackup: true

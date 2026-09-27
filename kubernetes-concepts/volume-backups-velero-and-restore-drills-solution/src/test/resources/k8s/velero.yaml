@@ -1,0 +1,41 @@
+# Given: Velero, installed from its Helm chart by k3s's Helm controller, with the AWS plugin (any
+# S3-compatible store) and the node agent that copies volume data (file system backup with kopia).
+apiVersion: v1
+kind: Namespace
+metadata: {name: velero}
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata: {name: velero, namespace: kube-system}
+spec:
+  repo: https://vmware-tanzu.github.io/helm-charts
+  chart: velero
+  version: 12.2.0
+  targetNamespace: velero
+  valuesContent: |-
+    image:
+      repository: mirror.gcr.io/velero/velero
+      tag: v1.18.2
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: mirror.gcr.io/velero/velero-plugin-for-aws:v1.14.2
+        volumeMounts:
+          - {mountPath: /target, name: plugins}
+    deployNodeAgent: true
+    snapshotsEnabled: false
+    credentials:
+      secretContents:
+        cloud: |
+          [default]
+          aws_access_key_id = lab
+          aws_secret_access_key = lab-secret
+    configuration:
+      backupStorageLocation:
+        - name: default
+          provider: aws
+          bucket: velero
+          default: true
+          config: {region: us-east-1, s3ForcePathStyle: "true", s3Url: "http://s3.storage:8333"}
+    kubectl:
+      image:
+        repository: mirror.gcr.io/bitnami/kubectl

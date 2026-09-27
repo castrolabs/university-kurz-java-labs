@@ -1,0 +1,28 @@
+# Given: the production database of the shop, with its data on a PersistentVolume.
+apiVersion: v1
+kind: Namespace
+metadata: {name: shop}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: {name: data, namespace: shop}
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: {requests: {storage: 1Gi}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: db, namespace: shop}
+spec:
+  selector: {matchLabels: {app: db}}
+  template:
+    metadata: {labels: {app: db}}
+    spec:
+      containers:
+        - name: db
+          image: busybox:1.37
+          command: ["sh", "-c", "touch /data/orders; exec sleep infinity"]
+          volumeMounts: [{name: data, mountPath: /data}]
+      volumes:
+        - name: data
+          persistentVolumeClaim: {claimName: data}

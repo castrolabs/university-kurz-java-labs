@@ -1,0 +1,9 @@
+# The shop's backup, as a Velero Backup object (the same thing "velero backup create" makes).
+# TODO-00: This backs up the Kubernetes objects of shop. Is the database's data in it?
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: shop-backup
+  namespace: velero
+spec:
+  includedNamespaces: [shop]
