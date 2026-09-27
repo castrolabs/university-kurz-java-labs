@@ -193,6 +193,8 @@
         <module>kubernetes-concepts/projected-volumes-combining-multiple-secrets-solution</module>
         <module>kubernetes-concepts/volumes-and-mount-conflicts</module>
         <module>kubernetes-concepts/volumes-and-mount-conflicts-solution</module>
+        <module>kubernetes-concepts/configmaps-and-environment-variables</module>
+        <module>kubernetes-concepts/configmaps-and-environment-variables-solution</module>
     </modules>
 
     <properties>

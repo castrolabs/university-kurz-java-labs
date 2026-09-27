@@ -1,0 +1,38 @@
+# The app refuses to start when REDIS_PORT is set to something that is not a number.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  # TODO-02: Once the Pod starts, it crashes with "REDIS_PORT is not a number". Nobody in this file
+  #          sets REDIS_PORT. Find out where it comes from (hint: kubectl -n example get svc) and stop it
+  #          without renaming anything. The app finds redis through DNS anyway.
+  containers:
+    - name: app
+      image: busybox:1.37
+      command:
+        - sh
+        - -c
+        - |
+          port="${REDIS_PORT:-6379}"
+          case "$port" in *[!0-9]*) echo "fatal: REDIS_PORT is not a number: $port" >&2; exit 1;; esac
+          echo "connecting to redis:$port"
+          sleep 3600
+      envFrom:
+        - configMapRef:
+            name: app-config
+        # TODO-00: The Pod is stuck in CreateContainerConfigError. Read the message: feature-flags is only
+        #          created in some environments. Here it does not exist, and that must not stop the Pod.
+        - configMapRef:
+            name: feature-flags
+      env:
+        # TODO-01: Next error, same state. List the keys of the Secret (kubectl -n example describe secret db-credentials)
+        #          and reference the right one.
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        # TODO-03: app-config sets LOG_LEVEL=info for every app. This Pod must run with LOG_LEVEL=debug
+        #          without changing the ConfigMap.
