@@ -217,6 +217,8 @@
         <module>kubernetes-concepts/logical-database-backups-with-kubectl-exec-and-cronjobs-solution</module>
         <module>kubernetes-concepts/rbac-least-privilege</module>
         <module>kubernetes-concepts/rbac-least-privilege-solution</module>
+        <module>kubernetes-concepts/serviceaccount-tokens-and-automount</module>
+        <module>kubernetes-concepts/serviceaccount-tokens-and-automount-solution</module>
     </modules>
 
     <properties>
