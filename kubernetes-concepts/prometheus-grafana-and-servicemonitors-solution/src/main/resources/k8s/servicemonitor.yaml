@@ -1,0 +1,14 @@
+# Tells Prometheus to scrape the example-app Service. Prometheus stays silent about ServiceMonitors it
+# ignores and endpoints it cannot match: the only clue is a missing target.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: example-app
+  namespace: shop
+  labels: {release: lab}          # matches the Prometheus serviceMonitorSelector
+spec:
+  selector:
+    matchLabels: {app: example-app}   # the Service's labels (not the Pods', not its name)
+  endpoints:
+    - port: web                   # the name of the Service port
+      interval: 5s

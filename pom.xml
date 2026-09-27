@@ -257,6 +257,8 @@
         <module>kubernetes-concepts/ingress-controllers-and-gateway-api-solution</module>
         <module>kubernetes-concepts/cert-manager-issuers-and-private-ca</module>
         <module>kubernetes-concepts/cert-manager-issuers-and-private-ca-solution</module>
+        <module>kubernetes-concepts/prometheus-grafana-and-servicemonitors</module>
+        <module>kubernetes-concepts/prometheus-grafana-and-servicemonitors-solution</module>
     </modules>
 
     <properties>

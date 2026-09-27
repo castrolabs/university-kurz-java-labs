@@ -1,0 +1,30 @@
+# Given: an app that exposes Prometheus metrics on /metrics.
+apiVersion: v1
+kind: Namespace
+metadata: {name: shop}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: example-app, namespace: shop}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: example-app}}
+  template:
+    metadata: {labels: {app: example-app}}
+    spec:
+      containers:
+        - name: example-app
+          image: quay.io/brancz/prometheus-example-app:v0.5.0
+          ports:
+            - {name: web, containerPort: 8080}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-app
+  namespace: shop
+  labels: {app: example-app}
+spec:
+  selector: {app: example-app}
+  ports:
+    - {name: web, port: 8080}
