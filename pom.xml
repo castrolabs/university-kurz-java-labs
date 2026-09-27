@@ -203,6 +203,8 @@
         <module>kubernetes-concepts/resource-requests-limits-and-qos-solution</module>
         <module>kubernetes-concepts/deployment-strategies-rollingupdate-vs-recreate</module>
         <module>kubernetes-concepts/deployment-strategies-rollingupdate-vs-recreate-solution</module>
+        <module>kubernetes-concepts/jobs-and-restart-policy</module>
+        <module>kubernetes-concepts/jobs-and-restart-policy-solution</module>
     </modules>
 
     <properties>

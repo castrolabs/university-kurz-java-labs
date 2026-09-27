@@ -1,0 +1,64 @@
+# Four one-off tasks. Each one has a Job setting that is wrong or missing.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+  namespace: example
+spec:
+  template:
+    spec:
+      # TODO-00: The API server rejects this Job. Read the error and pick a valid restartPolicy that keeps
+      #          every failed attempt in its own Pod (so its logs stay inspectable).
+      restartPolicy: Always
+      containers:
+        - name: migrate
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'schema migrated'"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flaky-import
+  namespace: example
+spec:
+  # TODO-01: This import is broken and every attempt fails. With the default retry limit it takes minutes
+  #          to be declared failed. Let it retry only once, so it is marked Failed after 2 attempts.
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: import
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'source file not found' >&2; exit 3"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: report
+  namespace: example
+spec:
+  # TODO-02: This report hangs forever (a lock that never gets released). Make Kubernetes stop the whole Job
+  #          after 20 seconds, no matter how many retries remain.
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: report
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'waiting for lock...'; sleep 3600"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cleanup
+  namespace: example
+spec:
+  # TODO-03: Finished Jobs and their Pods stay forever. Have Kubernetes delete this Job (and its Pods)
+  #          at most 30 seconds after it finishes.
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: cleanup
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'temporary files removed'"]

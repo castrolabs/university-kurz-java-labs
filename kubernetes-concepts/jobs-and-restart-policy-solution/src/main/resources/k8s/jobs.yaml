@@ -1,0 +1,59 @@
+# Four one-off tasks. Each one has a Job setting that is wrong or missing.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+  namespace: example
+spec:
+  template:
+    spec:
+      restartPolicy: Never          # Jobs accept only Never or OnFailure; Never keeps one Pod per attempt
+      containers:
+        - name: migrate
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'schema migrated'"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flaky-import
+  namespace: example
+spec:
+  backoffLimit: 1                 # default is 6, with exponential back-off between attempts
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: import
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'source file not found' >&2; exit 3"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: report
+  namespace: example
+spec:
+  activeDeadlineSeconds: 20       # wall-clock limit for the whole Job, retries included
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: report
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'waiting for lock...'; sleep 3600"]
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cleanup
+  namespace: example
+spec:
+  ttlSecondsAfterFinished: 10     # the TTL controller deletes the Job and its Pods
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: cleanup
+          image: busybox:1.37
+          command: ["sh", "-c", "echo 'temporary files removed'"]
