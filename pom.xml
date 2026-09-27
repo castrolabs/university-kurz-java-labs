@@ -223,6 +223,8 @@
         <module>kubernetes-concepts/network-policies-default-deny-solution</module>
         <module>kubernetes-concepts/pod-security-admission</module>
         <module>kubernetes-concepts/pod-security-admission-solution</module>
+        <module>kubernetes-concepts/securitycontext-hardening</module>
+        <module>kubernetes-concepts/securitycontext-hardening-solution</module>
     </modules>
 
     <properties>
