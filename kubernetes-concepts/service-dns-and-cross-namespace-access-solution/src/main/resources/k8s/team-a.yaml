@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: team-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: api}
+  template:
+    metadata:
+      labels: {app: api}
+    spec:
+      containers:
+        - name: api
+          image: busybox:1.37
+          command: ["sleep", "infinity"]
+          env:
+            # A short name only resolves in the Pod's own namespace; <service>.<namespace> works anywhere.
+            - name: DB_URL
+              value: "http://db.shared:8080"
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", "wget -qO- -T 2 \"$DB_URL\""]
+            periodSeconds: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legacy
+  namespace: team-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: legacy}
+  template:
+    metadata:
+      labels: {app: legacy}
+    spec:
+      containers:
+        - name: legacy
+          image: busybox:1.37
+          command: ["sleep", "infinity"]
+          readinessProbe:
+            exec:
+              command: ["wget", "-qO-", "-T", "2", "http://database:8080"]
+            periodSeconds: 2
+---
+# A DNS alias: "database" in team-a is a CNAME to the real Service. No selector, no endpoints, no IP.
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  namespace: team-a
+spec:
+  type: ExternalName
+  externalName: db.shared.svc.cluster.local
