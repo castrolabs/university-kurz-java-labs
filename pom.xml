@@ -259,6 +259,8 @@
         <module>kubernetes-concepts/cert-manager-issuers-and-private-ca-solution</module>
         <module>kubernetes-concepts/prometheus-grafana-and-servicemonitors</module>
         <module>kubernetes-concepts/prometheus-grafana-and-servicemonitors-solution</module>
+        <module>kubernetes-concepts/alertmanager-basic-alerts</module>
+        <module>kubernetes-concepts/alertmanager-basic-alerts-solution</module>
     </modules>
 
     <properties>

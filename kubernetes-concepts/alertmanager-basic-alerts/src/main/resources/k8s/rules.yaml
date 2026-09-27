@@ -1,0 +1,21 @@
+# The team's alert: example-app is answering requests with errors (4xx or 5xx).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-app
+  namespace: shop
+  # TODO-00: Prometheus "lab" only loads some PrometheusRules. Check its ruleSelector.
+spec:
+  groups:
+    - name: example-app
+      rules:
+        - alert: ExampleAppErrors
+          # TODO-01: This expression never matches anything. Compare its labels with the metric's real labels.
+          expr: sum(rate(http_requests_total{namespace="shop", status=~"4..|5.."}[1m])) > 0
+          # TODO-02: The team wants to hear about errors within about a minute, but not about a single
+          #          stray error.
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "example-app is answering with errors"

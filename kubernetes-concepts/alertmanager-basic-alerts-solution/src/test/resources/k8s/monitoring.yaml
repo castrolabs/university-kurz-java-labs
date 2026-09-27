@@ -1,0 +1,52 @@
+# Given: Prometheus and Alertmanager managed by the Prometheus Operator, as a platform team would run them.
+apiVersion: v1
+kind: Namespace
+metadata: {name: monitoring}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: prometheus, namespace: monitoring}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: prometheus}
+rules:
+  - apiGroups: [""]
+    resources: [services, endpoints, pods]
+    verbs: [get, list, watch]
+  - apiGroups: [discovery.k8s.io]
+    resources: [endpointslices]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: prometheus}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: prometheus}
+subjects:
+  - {kind: ServiceAccount, name: prometheus, namespace: monitoring}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata: {name: lab, namespace: monitoring}
+spec:
+  serviceAccountName: prometheus
+  replicas: 1
+  scrapeInterval: 5s
+  serviceMonitorNamespaceSelector: {}      # ServiceMonitors from every namespace...
+  serviceMonitorSelector:                  # ...but only those with this label
+    matchLabels: {release: lab}
+  evaluationInterval: 5s
+  ruleNamespaceSelector: {}                # PrometheusRules from every namespace...
+  ruleSelector:                            # ...but only those with this label
+    matchLabels: {release: lab}
+  alerting:
+    alertmanagers:
+      - {namespace: monitoring, name: alertmanager-operated, port: web}
+  resources:
+    requests: {memory: 200Mi}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata: {name: lab, namespace: monitoring}
+spec:
+  replicas: 1

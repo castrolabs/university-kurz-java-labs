@@ -1,0 +1,20 @@
+# The team's alert: example-app is answering requests with errors (4xx or 5xx).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-app
+  namespace: shop
+  labels: {release: lab}          # matches the Prometheus ruleSelector
+spec:
+  groups:
+    - name: example-app
+      rules:
+        - alert: ExampleAppErrors
+          # The metric's label is "code"; a selector on a label that does not exist matches nothing, silently.
+          expr: sum(rate(http_requests_total{namespace="shop", code=~"4..|5.."}[1m])) > 0
+          # Must stay true for 30 s before firing: long enough to ignore a blip, short enough to be useful.
+          for: 30s
+          labels:
+            severity: warning
+          annotations:
+            summary: "example-app is answering with errors"
