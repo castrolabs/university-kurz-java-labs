@@ -199,6 +199,8 @@
         <module>kubernetes-concepts/secrets-as-env-vars-vs-mounted-files-solution</module>
         <module>kubernetes-concepts/startup-liveness-readiness-probes</module>
         <module>kubernetes-concepts/startup-liveness-readiness-probes-solution</module>
+        <module>kubernetes-concepts/resource-requests-limits-and-qos</module>
+        <module>kubernetes-concepts/resource-requests-limits-and-qos-solution</module>
     </modules>
 
     <properties>

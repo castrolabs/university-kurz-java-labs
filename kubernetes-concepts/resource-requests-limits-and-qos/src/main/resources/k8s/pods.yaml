@@ -1,0 +1,48 @@
+# Three Pods on a small node. Each one has a resources problem.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: worker
+  namespace: example
+spec:
+  containers:
+    - name: worker
+      image: busybox:1.37
+      # Builds a 150 MiB lookup table in memory, then serves from it.
+      command: ["awk", "BEGIN { t = sprintf(\"%150000000s\", \"\"); print \"loaded\"; fflush(); system(\"sleep 3600\") }"]
+      # TODO-00: The worker keeps restarting. Read the last termination reason and exit code, then give it
+      #          enough memory.
+      resources:
+        requests: {memory: 64Mi, cpu: 50m}
+        limits: {memory: 64Mi}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db
+  namespace: example
+spec:
+  containers:
+    - name: db
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      # TODO-01: The database must be the last Pod evicted when the node runs low on memory, which means QoS
+      #          class Guaranteed (kubectl -n example get pod db -o jsonpath='{.status.qosClass}').
+      resources:
+        requests: {memory: 128Mi, cpu: 100m}
+        limits: {memory: 128Mi}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: batch
+  namespace: example
+spec:
+  containers:
+    - name: batch
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      # TODO-02: This Pod never gets scheduled. Read its events. The job really needs about 128 MiB.
+      resources:
+        requests: {memory: 64Gi, cpu: 50m}
+        limits: {memory: 64Gi}

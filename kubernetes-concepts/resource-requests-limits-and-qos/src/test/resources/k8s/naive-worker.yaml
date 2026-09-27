@@ -1,0 +1,15 @@
+# Same as the starter worker.yaml, kept for comparison.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: naive-worker
+  namespace: example
+spec:
+  containers:
+    - name: worker
+      image: busybox:1.37
+      # Builds a 150 MiB lookup table in memory, then serves from it.
+      command: ["awk", "BEGIN { t = sprintf(\"%150000000s\", \"\"); print \"loaded\"; fflush(); system(\"sleep 3600\") }"]
+      resources:
+        requests: {memory: 64Mi, cpu: 50m}
+        limits: {memory: 64Mi}
