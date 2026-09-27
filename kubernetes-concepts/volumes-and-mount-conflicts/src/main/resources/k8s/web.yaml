@@ -1,0 +1,21 @@
+# nginx with one extra server block (port 8081) that lives in the ConfigMap nginx-extra (key extra.conf).
+# The default site on port 80 must keep working.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  namespace: example
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.29-alpine
+      volumeMounts:
+        # TODO-01: This mount replaces the whole /etc/nginx directory, so nginx.conf is gone.
+        #          Mount only the extra.conf file into /etc/nginx/conf.d/, next to the image's
+        #          default.conf (hint: subPath).
+        - name: extra
+          mountPath: /etc/nginx
+  volumes:
+    - name: extra
+      configMap:
+        name: nginx-extra

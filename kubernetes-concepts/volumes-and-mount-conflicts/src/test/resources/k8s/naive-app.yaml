@@ -1,0 +1,19 @@
+# The "obvious" Pod: Secret read-only at /run/secrets, default ServiceAccount token automounted.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: naive-app
+  namespace: example
+spec:
+  containers:
+    - name: app
+      image: ubuntu:24.04
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      secret:
+        secretName: app-secrets

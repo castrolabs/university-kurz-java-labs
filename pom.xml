@@ -191,6 +191,8 @@
         <module>testing-concepts/database-testing-prerequisites-and-transactions-solution</module>
         <module>kubernetes-concepts/projected-volumes-combining-multiple-secrets</module>
         <module>kubernetes-concepts/projected-volumes-combining-multiple-secrets-solution</module>
+        <module>kubernetes-concepts/volumes-and-mount-conflicts</module>
+        <module>kubernetes-concepts/volumes-and-mount-conflicts-solution</module>
     </modules>
 
     <properties>

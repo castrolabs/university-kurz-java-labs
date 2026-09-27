@@ -1,0 +1,23 @@
+# An app that reads its API key from /run/secrets/API_KEY. It never calls the Kubernetes API.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  # No token means nothing has to be mounted at /var/run/secrets/kubernetes.io/serviceaccount,
+  # which on Ubuntu is inside the read-only /run/secrets volume. It also removes an API credential
+  # the app never used.
+  automountServiceAccountToken: false
+  containers:
+    - name: app
+      image: ubuntu:24.04
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      secret:
+        secretName: app-secrets

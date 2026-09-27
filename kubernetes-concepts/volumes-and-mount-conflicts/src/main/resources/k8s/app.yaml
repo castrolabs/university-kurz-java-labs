@@ -1,0 +1,23 @@
+# An app that reads its API key from /run/secrets/API_KEY. It never calls the Kubernetes API.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  # TODO-00: Run the tests and read the message of pod/naive-app. This Pod has the same problem.
+  #          Keep the Secret at /run/secrets (the app expects it there) and fix the Pod without
+  #          touching the volume: the app does not need the ServiceAccount token that Kubernetes
+  #          mounts at /var/run/secrets/kubernetes.io/serviceaccount.
+  containers:
+    - name: app
+      image: ubuntu:24.04
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: secrets
+          mountPath: /run/secrets
+          readOnly: true
+  volumes:
+    - name: secrets
+      secret:
+        secretName: app-secrets
