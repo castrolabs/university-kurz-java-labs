@@ -1,0 +1,33 @@
+# One image, three roles: the same build runs as the HTTP API, the queue worker and the migration Job.
+# Only the arguments differ.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: api}
+spec:
+  selector: {matchLabels: {app: api}}
+  template:
+    metadata: {labels: {app: api}}
+    spec:
+      containers:
+        - {name: app, image: "busybox:1.37", args: ["sh", "-c", "echo role=api; sleep infinity"]}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: worker}
+spec:
+  selector: {matchLabels: {app: worker}}
+  template:
+    metadata: {labels: {app: worker}}
+    spec:
+      containers:
+        - {name: app, image: "busybox:1.37", args: ["sh", "-c", "echo role=worker; sleep infinity"]}
+---
+apiVersion: batch/v1
+kind: Job
+metadata: {name: migrate}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - {name: app, image: "docker.io/library/busybox:1.37", args: ["sh", "-c", "echo role=migrate"]}

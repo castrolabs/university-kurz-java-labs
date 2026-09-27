@@ -267,6 +267,8 @@
         <module>kubernetes-concepts/kubeconfig-contexts-and-admin-access-solution</module>
         <module>kubernetes-concepts/kustomize-bases-overlays-and-components</module>
         <module>kubernetes-concepts/kustomize-bases-overlays-and-components-solution</module>
+        <module>kubernetes-concepts/kustomize-images-one-image-many-roles</module>
+        <module>kubernetes-concepts/kustomize-images-one-image-many-roles-solution</module>
     </modules>
 
     <properties>
