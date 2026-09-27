@@ -275,6 +275,8 @@
         <module>kubernetes-concepts/deploying-from-ci-pipeline-solution</module>
         <module>kubernetes-concepts/kubernetes-core-objects</module>
         <module>kubernetes-concepts/kubernetes-core-objects-solution</module>
+        <module>kubernetes-concepts/kubectl-essentials</module>
+        <module>kubernetes-concepts/kubectl-essentials-solution</module>
     </modules>
 
     <properties>
