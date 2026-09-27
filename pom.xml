@@ -251,6 +251,8 @@
         <module>kubernetes-concepts/idempotent-cluster-bootstrap-solution</module>
         <module>kubernetes-concepts/metrics-server-and-kubectl-top</module>
         <module>kubernetes-concepts/metrics-server-and-kubectl-top-solution</module>
+        <module>kubernetes-concepts/managed-runtime-memory-in-containers</module>
+        <module>kubernetes-concepts/managed-runtime-memory-in-containers-solution</module>
     </modules>
 
     <properties>

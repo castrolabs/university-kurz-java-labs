@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: cache}
+  template:
+    metadata:
+      labels: {app: cache}
+    spec:
+      containers:
+        - name: cache
+          image: mirror.gcr.io/library/eclipse-temurin:25-jre
+          command: ["java", "-cp", "/app", "CacheWarmup"]
+          # The node budget for this service is 512Mi: keep the limit as it is.
+          resources:
+            requests: {memory: 512Mi, cpu: 500m}
+            limits: {memory: 512Mi}
+          # TODO-00: The app needs 200 MiB of live data and dies on startup. Give the heap 60 to 80% of
+          #          the container limit, relative to the limit (so it follows the limit if it changes).
+          # TODO-01: With this much memory the JVM picks the Serial collector, which stops the app for every
+          #          collection. Use G1.
+          # TODO-02: If the heap does run out, the process must exit, so that Kubernetes restarts it.
+          volumeMounts:
+            - {name: app, mountPath: /app, readOnly: true}
+      volumes:
+        - name: app
+          hostPath: {path: /lab/app, type: Directory}   # the compiled CacheWarmup class, copied by the test

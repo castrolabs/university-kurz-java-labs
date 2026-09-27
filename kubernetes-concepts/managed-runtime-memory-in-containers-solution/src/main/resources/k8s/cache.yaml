@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: cache}
+  template:
+    metadata:
+      labels: {app: cache}
+    spec:
+      containers:
+        - name: cache
+          image: mirror.gcr.io/library/eclipse-temurin:25-jre
+          command: ["java", "-cp", "/app", "CacheWarmup"]
+          # The node budget for this service is 512Mi: keep the limit as it is.
+          resources:
+            requests: {memory: 512Mi, cpu: 500m}
+            limits: {memory: 512Mi}
+          env:
+            # Read by every JVM started in the container. 70% of 512Mi is about 358 MiB of heap, leaving
+            # about 150 MiB for metaspace, code cache, thread stacks and native memory.
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:MaxRAMPercentage=70 -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError"
+          volumeMounts:
+            - {name: app, mountPath: /app, readOnly: true}
+      volumes:
+        - name: app
+          hostPath: {path: /lab/app, type: Directory}   # the compiled CacheWarmup class, copied by the test
