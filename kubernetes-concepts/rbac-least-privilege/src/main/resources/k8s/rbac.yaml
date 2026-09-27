@@ -1,0 +1,29 @@
+# Two identities in namespace team-a:
+# - deployer: used by the CI pipeline to roll out new images of the Deployments in team-a
+#   (get/list/watch/patch/update deployments) and to read Pods and their logs to diagnose failures.
+# - viewer: used by developers to look at everything in team-a, except Secrets, without changing anything.
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: deployer, namespace: team-a}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: viewer, namespace: team-a}
+---
+# TODO-00: "It always works" is exactly the problem: cluster-admin, everywhere. Replace this binding with a Role in
+#          team-a that grants only what the deployer needs (see the header), and a RoleBinding to it.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: deployer-admin}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: cluster-admin}
+subjects:
+  - {kind: ServiceAccount, name: deployer, namespace: team-a}
+---
+# TODO-01: Developers must not change anything nor read Secrets. Kubernetes ships a ClusterRole for exactly that;
+#          bind it in team-a instead of "edit".
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: viewer, namespace: team-a}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: edit}
+subjects:
+  - {kind: ServiceAccount, name: viewer, namespace: team-a}

@@ -1,0 +1,38 @@
+# Two identities in namespace team-a:
+# - deployer: used by the CI pipeline to roll out new images of the Deployments in team-a
+#   (get/list/watch/patch/update deployments) and to read Pods and their logs to diagnose failures.
+# - viewer: used by developers to look at everything in team-a, except Secrets, without changing anything.
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: deployer, namespace: team-a}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: viewer, namespace: team-a}
+---
+# Namespaced Role: exactly the verbs the pipeline uses, only in team-a.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: deployer, namespace: team-a}
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "patch", "update"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: deployer, namespace: team-a}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: deployer}
+subjects:
+  - {kind: ServiceAccount, name: deployer, namespace: team-a}
+---
+# The built-in "view" ClusterRole reads almost everything except Secrets; a RoleBinding limits it to team-a.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: viewer, namespace: team-a}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: view}
+subjects:
+  - {kind: ServiceAccount, name: viewer, namespace: team-a}
