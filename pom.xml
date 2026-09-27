@@ -229,6 +229,8 @@
         <module>kubernetes-concepts/service-dns-and-cross-namespace-access-solution</module>
         <module>kubernetes-concepts/services-clusterip-and-nodeport</module>
         <module>kubernetes-concepts/services-clusterip-and-nodeport-solution</module>
+        <module>kubernetes-concepts/deleting-pods-scaling-and-stuck-namespaces</module>
+        <module>kubernetes-concepts/deleting-pods-scaling-and-stuck-namespaces-solution</module>
     </modules>
 
     <properties>
