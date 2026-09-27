@@ -255,6 +255,8 @@
         <module>kubernetes-concepts/managed-runtime-memory-in-containers-solution</module>
         <module>kubernetes-concepts/ingress-controllers-and-gateway-api</module>
         <module>kubernetes-concepts/ingress-controllers-and-gateway-api-solution</module>
+        <module>kubernetes-concepts/cert-manager-issuers-and-private-ca</module>
+        <module>kubernetes-concepts/cert-manager-issuers-and-private-ca-solution</module>
     </modules>
 
     <properties>

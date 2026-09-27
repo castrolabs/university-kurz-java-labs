@@ -1,0 +1,39 @@
+# HTTPS for shop.lab with a certificate from the company's private CA (Secret "lab-ca" in "web").
+# A ClusterIssuer reads its Secrets from cert-manager's own namespace; an Issuer reads them from its
+# namespace. The CA lives in "web", so the issuer is a namespaced Issuer there.
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: lab-ca
+  namespace: web
+spec:
+  ca:
+    secretName: lab-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: shop
+  namespace: web
+spec:
+  secretName: shop-tls
+  dnsNames: [shop.lab]          # every name clients use; www.shop.lab does not cover shop.lab
+  issuerRef: {name: lab-ca, kind: Issuer}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop
+  namespace: web
+spec:
+  tls:
+    - hosts: [shop.lab]
+      secretName: shop-tls      # the Secret the Certificate writes
+  rules:
+    - host: shop.lab
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: shop, port: {number: 8080}}
