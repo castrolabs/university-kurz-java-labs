@@ -247,6 +247,8 @@
         <module>kubernetes-concepts/pod-lifecycle-and-status-solution</module>
         <module>kubernetes-concepts/multi-namespace-layout-and-apply-order</module>
         <module>kubernetes-concepts/multi-namespace-layout-and-apply-order-solution</module>
+        <module>kubernetes-concepts/idempotent-cluster-bootstrap</module>
+        <module>kubernetes-concepts/idempotent-cluster-bootstrap-solution</module>
     </modules>
 
     <properties>
