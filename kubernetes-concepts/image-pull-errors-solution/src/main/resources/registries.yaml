@@ -1,0 +1,6 @@
+# /etc/rancher/k3s/registries.yaml: containerd settings for pulling images on this node.
+# k3s reads it only when it starts (after a change: restart k3s on every node).
+configs:
+  "registry.lab":
+    tls:
+      ca_file: /etc/rancher/k3s/lab-ca.crt   # trust the private CA for this registry only

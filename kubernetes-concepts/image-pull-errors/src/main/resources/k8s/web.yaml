@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: web
+          # TODO-01: Once the registry is trusted, this still does not pull. The failure message lists the
+          #          tags that exist in registry.lab/tools/busybox.
+          image: registry.lab/tools/busybox:1.37.0
+          command: ["sleep", "infinity"]

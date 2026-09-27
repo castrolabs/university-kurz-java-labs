@@ -1,0 +1,8 @@
+# /etc/rancher/k3s/registries.yaml: containerd settings for pulling images on this node.
+# k3s reads it only when it starts. In the lab, the test copies this file in before the node starts.
+#
+# registry.lab serves HTTPS with a certificate signed by the company's private CA, which the node does
+# not trust. The CA certificate is already on the node at /etc/rancher/k3s/lab-ca.crt.
+#
+# TODO-00: Make the node trust registry.lab's certificate. Do not turn TLS verification off.
+configs: {}
