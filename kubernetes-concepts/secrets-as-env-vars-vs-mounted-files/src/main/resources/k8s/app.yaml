@@ -1,0 +1,30 @@
+# The app reads its database password from /etc/app/secrets/DB_PASSWORD every time it opens a connection.
+# Operations rotate the Secret db-credentials without restarting Pods.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      env:
+        # TODO-00: The password also lands in the process environment, where it never changes after
+        #          start and leaks into child processes and crash dumps. The app only reads the file:
+        #          remove this variable.
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef: {name: db-credentials, key: DB_PASSWORD}
+      volumeMounts:
+        # TODO-01: After a rotation this file keeps the old password forever. Mount the Secret as a
+        #          directory at /etc/app/secrets instead, so the kubelet can update it in place.
+        - name: db
+          mountPath: /etc/app/secrets/DB_PASSWORD
+          subPath: DB_PASSWORD
+          readOnly: true
+  volumes:
+    - name: db
+      secret:
+        secretName: db-credentials
