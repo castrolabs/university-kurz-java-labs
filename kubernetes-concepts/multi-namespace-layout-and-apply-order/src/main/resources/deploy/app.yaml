@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: shop
+data:
+  GREETING: "hello"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: web
+          image: busybox:1.37
+          command: ["sh", "-c", "sleep 5; touch /tmp/ready; exec sleep infinity"]   # takes a few seconds to start
+          envFrom:
+            - configMapRef: {name: web-config}
+          readinessProbe:
+            exec: {command: ["test", "-f", "/tmp/ready"]}
+            periodSeconds: 1

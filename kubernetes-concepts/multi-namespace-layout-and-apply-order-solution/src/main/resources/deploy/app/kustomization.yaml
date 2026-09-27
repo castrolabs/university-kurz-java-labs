@@ -1,0 +1,8 @@
+# Step 2: the application. Kustomize sorts its output by kind (Namespace first, then ConfigMaps, then
+# workloads), whatever the order of this list.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - app.yaml
+  - widget.yaml
+  - namespace.yaml

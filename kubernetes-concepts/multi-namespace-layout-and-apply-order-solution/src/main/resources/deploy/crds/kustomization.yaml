@@ -1,0 +1,5 @@
+# Step 1: cluster-wide API extensions. Applied, and waited for, before anything that uses them.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - widget-crd.yaml
