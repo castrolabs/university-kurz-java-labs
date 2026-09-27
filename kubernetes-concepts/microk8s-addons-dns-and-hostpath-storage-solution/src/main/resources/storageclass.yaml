@@ -1,0 +1,11 @@
+# A StorageClass for the database: its volumes live under /mnt/db-volumes (a dedicated disk in real
+# life), and deleting a claim must not delete the data.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: db-retain          # not the default: only claims that ask for it get it
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Retain      # the PV and its directory stay after the claim is deleted
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  pvDir: /mnt/db-volumes   # where the hostpath provisioner creates the directories

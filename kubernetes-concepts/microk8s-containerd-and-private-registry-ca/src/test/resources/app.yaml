@@ -1,0 +1,7 @@
+# Given: an app whose image comes from the company registry.
+apiVersion: v1
+kind: Pod
+metadata: {name: app}
+spec:
+  containers:
+    - {name: app, image: "registry.lab:5443/tools/busybox:1.37", command: ["sleep", "infinity"]}

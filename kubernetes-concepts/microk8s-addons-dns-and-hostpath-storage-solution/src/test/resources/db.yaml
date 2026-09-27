@@ -1,0 +1,22 @@
+# Given: a database Pod with a claim on the db-retain class.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: {name: db-data}
+spec:
+  storageClassName: db-retain
+  accessModes: [ReadWriteOnce]
+  resources: {requests: {storage: 1Gi}}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: db}
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: db
+      image: busybox:1.37
+      command: ["sh", "-c", "echo keep-me > /data/marker && sleep infinity"]
+      volumeMounts: [{name: data, mountPath: /data}]
+  volumes:
+    - name: data
+      persistentVolumeClaim: {claimName: db-data}

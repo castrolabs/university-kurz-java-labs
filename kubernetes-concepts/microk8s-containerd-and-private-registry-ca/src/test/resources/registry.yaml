@@ -1,0 +1,49 @@
+# Given: the company registry, serving HTTPS on registry.lab:5443 with a certificate signed by the
+# company's private CA, and a Job that copies busybox into it as registry.lab:5443/tools/busybox:1.37.
+# (registry.lab resolves to this machine through /etc/hosts.)
+apiVersion: v1
+kind: Namespace
+metadata: {name: registry}
+---
+apiVersion: v1
+kind: Secret
+metadata: {name: registry-tls, namespace: registry}
+type: kubernetes.io/tls
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURTakNDQWpLZ0F3SUJBZ0lVUy96UXFmd1JJZ0VXb3FOZW1CeGo3ajlwdDc4d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dURVhNQlVHQTFVRUF3d09UR0ZpSUZCeWFYWmhkR1VnUTBFd0lCY05Nall3T1RJM01ETXlNekUzV2hnUApNakV5TmpBNU1ETXdNekl6TVRkYU1CY3hGVEFUQmdOVkJBTU1ESEpsWjJsemRISjVMbXhoWWpDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUxyU1FFRWJINUNZMWQ3S2p4WTJlWDZDTkdqSGFpUXcKYlVDOGgwcnlWNWtucklVT1BxR2E2N1k0TjRWOVppT29jSkpVZG9wY0lYdWFrV0dmYWIwWE83UG9PNVJ1VVNOLwpWbC9INytPK3liS0lUdmhsUlJSTU15N09vMFNJOEx0aWlsN0FESm5Cc0ZraVFiend3Mm9YSGd2WjVkMXg2Sk1vClpXVzNUWGdYY0NYL2NVbGhEenZSd3d4U0dxU215OEh2OFNJaENYNlp4MGlRMTY4ejF1blg3bThQbFBpdDNDWGkKWUpnVVZNcU1rNHBrbFIySVh0YldLTUhXc2JGa1VBRnRlZm56RGEwREJOQUhlbndqMmJuSnV5c2ZtcE8wN2FkQwpGdVJpZDhWOVlKNzJrYVErMWhvQ011enY2Z05DaWx1aTA0VVVtL2dzZ1crRHREVGFjNDJnbkFjQ0F3RUFBYU9CCmlUQ0JoakFYQmdOVkhSRUVFREFPZ2d4eVpXZHBjM1J5ZVM1c1lXSXdDUVlEVlIwVEJBSXdBREFMQmdOVkhROEUKQkFNQ0JhQXdFd1lEVlIwbEJBd3dDZ1lJS3dZQkJRVUhBd0V3SFFZRFZSME9CQllFRktuMTFZUlJ0cjFtbFVGYQpNZE43WjBIa3k5TTVNQjhHQTFVZEl3UVlNQmFBRkhhc3pCQVYzQ05SL25tRmFaME92SDlrZER6Q01BMEdDU3FHClNJYjNEUUVCQ3dVQUE0SUJBUUJMNVFIREpmM3NORkcwcWN3aFFGWi9ONDFDVmRNNGhKMFpvdkdDUG1nWTFhVDgKMUlPMnBIYmw5L1RNOHRQY2VRaWQremdEVURyMndpblIzVnFvckdJVFZjVEhWczlNdE5DMWlReXgyV0RGbUZKdwpQTHB4Yk0rWFp5NGZsN1ViOW5iT2U3N2N1Zk1DQmgvZFBoK2w2RXJKenA2ZEdRekxhQWxpV0dYbzZ2aU5YUDVECmZZTFZvNzFnQnhTdGhiY2ZpWmE3ZEpZbVFGZ1NFdHY2MjcyRkVUNnV4Z2p2K0xXcXdpYncvRHhTYzFuakorTzgKbFdGZk1hbW95Z09FY3hRc0lIclFDblJnQUp2ZGtycjUwdWRCRnZBTENqL0xIbVlhakp3S1lEUDVNeTlIN3Y2RQpnTTZDV0E2Q05XQ0dIdi96SXJuSzJ5Vnh4VnhjVWlVYU5rVDFzUnF2Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQzYwa0JCR3grUW1OWGUKeW84V05ubCtnalJveDJva01HMUF2SWRLOGxlWko2eUZEajZobXV1Mk9EZUZmV1lqcUhDU1ZIYUtYQ0Y3bXBGaApuMm05Rnp1ejZEdVVibEVqZjFaZngrL2p2c215aUU3NFpVVVVURE11enFORWlQQzdZb3Bld0F5WndiQlpJa0c4CjhNTnFGeDRMMmVYZGNlaVRLR1ZsdDAxNEYzQWwvM0ZKWVE4NzBjTU1VaHFrcHN2QjcvRWlJUWwrbWNkSWtOZXYKTTlicDErNXZENVQ0cmR3bDRtQ1lGRlRLakpPS1pKVWRpRjdXMWlqQjFyR3haRkFCYlhuNTh3MnRBd1RRQjNwOApJOW01eWJzckg1cVR0TzJuUWhia1luZkZmV0NlOXBHa1B0WWFBakxzNytvRFFvcGJvdE9GRkp2NExJRnZnN1EwCjJuT05vSndIQWdNQkFBRUNnZ0VBQnFlQWhHWjc3RmJxbjBIbHhpdkY0MmRZaUl3NXovVFlTZ3NDWXFnRHpoVVMKQkdIcWdkcHJ5ajl4c3RQY1NkUXhGa3FONGxzVkVqc0NNZnVrbjRpWlVYZC9KUjFTSklxS1FBL0xaVTJoWk9EaQp0elJHNC9TRzM0UkZYOUU2TkkwZy9VT243ejRYNkVUYnhKTEFLSGVPL3NCbkpmUEREZmdpdHg4ZFVrbG1HWTc4CjkwSW1uQnp1RHRwcEU5dURDeVF1RlhZWC9sVDVMWXdaQmV0eVZremJadWxQSE9NT0VFQmlkZGpJamNiMXhvZmEKTmU3VTJDd1c3OUtJeVhQTDBpVy9UYlhQcjZDeUlvWkJ5anBaUFhDeHR2QytUL2lWelpCRTBUQXJUYzdIdUJJOQpIaG5ZSDQ2L3J5N2Z3L2RmaHowaVo1bVFpUkd3cmFFZEZVckttL1FGMFFLQmdRRDZ5N3hKZ3VHdWhGVDJnRnpJCmVTVGh5Tm9CRStTZmlVZ0FMQ0dxd2k4N2h1RnhlOGdHc3NVS25NTUVQYm1GaTlONStud1ZXSEhTamo3R2x6TzUKdkMrSEYrTDlWK3lES1FCcXBIeHRMbHZObmlMYlZpTGlWNDFxMDNwMDNQUEkzdmlMaTMralpyT2ZlMWcwRVJwMApOeEV1dUtsZUhmN3Bua0U1b2hHdFNwQWgzd0tCZ1FDK3NxeGFsY2o3dTg5aGhxdE1ieFJCcHZtOW5SWEtFaUJQCjQyRmxyMVVxUUJlTFpQalB5VlpJNStxVjZITXVjRXZKd0RKVVdiSjdJZXdBdnFuUC80cDd6cXowU0ZNYStzNlYKMXRXbSsrSFVTMUhJMlhTYTR0VzJuZm42dU83Q0JsU0gxUllhWWlGd2lscE5mTEFPWmlhQVdGSTQvblFHOHMzYwpZMzZ2enVUYTJRS0JnUURiSEM1bkp5TFczcVNBTEF0ajFudERpNy96R3hjdHpybUo5UVNBOUdCaHFHakVSZm11CjZIYS8yOCtCb0ErNnZqdkhvUERSa1ZENFBQQlpmblpoZWlrbjVOV2FzenRlSis5R1BHaTgxcmk3L3NIRFVSRHYKSU1EYnFPR2V3ZjkyNmw3SlE5b0N2MUtGTGpVVVlERDFnYnJRVCtNZzZDSHlweUdqSVpaQ0NSZTlqd0tCZ0NyWQpzRnNHRG90cERsWm1VTFN5dklWbncvTXppVUxHd2RYUlMvL3gzaHZKSE1Fb0piTmlGRzM3RmIwcTVqNUg0dTlvCnJLWkJKUlgvY0N4V3FvYmVicm9Vbk0yaU5uSDRhbFJHV2VqVDdWQ3F2NngyRjNuNWYzVXhsNG9hNVNKWkU4TVYKUUlzYkExSnE4NUUzYzhNNGRtd2Q3Qk44TUl1aklGZmxUd0NuWnNvNUFvR0FFelBrRzNkYWE5ZTRXRUxkODl2NQp4MTZIRkVqY2pob3ZkMjMzNnZUbElKRFlHSnVyTXJzOFRIdUcrUnRTSGFxd1hpakNUeGhxenViaUZwUW9QcGo4CjltVlo3aUQvVzZkQU4zZ203cStwbVhkY001NVdldDBUNDEwM0xZUHZiK3cvZXJmbUFtT25FUUszWHZ4RHZ0eUUKTm1RRGVjKytTK0pIaklMNXFDNy9oSnM9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: registry, namespace: registry}
+spec:
+  selector: {matchLabels: {app: registry}}
+  template:
+    metadata: {labels: {app: registry}}
+    spec:
+      hostNetwork: true
+      containers:
+        - name: registry
+          image: mirror.gcr.io/library/registry:3
+          env:
+            - {name: REGISTRY_HTTP_ADDR, value: "0.0.0.0:5443"}
+            - {name: REGISTRY_HTTP_TLS_CERTIFICATE, value: /certs/tls.crt}
+            - {name: REGISTRY_HTTP_TLS_KEY, value: /certs/tls.key}
+          volumeMounts: [{name: tls, mountPath: /certs}]
+      volumes:
+        - name: tls
+          secret: {secretName: registry-tls}
+---
+apiVersion: batch/v1
+kind: Job
+metadata: {name: seed, namespace: registry}
+spec:
+  backoffLimit: 10
+  template:
+    spec:
+      hostNetwork: true
+      restartPolicy: OnFailure
+      containers:
+        - name: crane
+          image: gcr.io/go-containerregistry/crane:latest
+          args: ["copy", "mirror.gcr.io/library/busybox:1.37", "registry.lab:5443/tools/busybox:1.37", "--insecure"]

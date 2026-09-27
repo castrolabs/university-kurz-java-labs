@@ -283,6 +283,12 @@
         <module>kubernetes-concepts/lets-encrypt-http01-vs-dns01-solution</module>
         <module>kubernetes-concepts/volume-backups-velero-and-restore-drills</module>
         <module>kubernetes-concepts/volume-backups-velero-and-restore-drills-solution</module>
+        <module>kubernetes-concepts/microk8s-installation-and-diagnostics</module>
+        <module>kubernetes-concepts/microk8s-installation-and-diagnostics-solution</module>
+        <module>kubernetes-concepts/microk8s-addons-dns-and-hostpath-storage</module>
+        <module>kubernetes-concepts/microk8s-addons-dns-and-hostpath-storage-solution</module>
+        <module>kubernetes-concepts/microk8s-containerd-and-private-registry-ca</module>
+        <module>kubernetes-concepts/microk8s-containerd-and-private-registry-ca-solution</module>
     </modules>
 
     <properties>

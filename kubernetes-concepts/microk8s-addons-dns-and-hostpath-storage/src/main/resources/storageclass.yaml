@@ -1,0 +1,12 @@
+# A StorageClass for the database: its volumes live under /mnt/db-volumes (a dedicated disk in real
+# life), and deleting a claim must not delete the data.
+# TODO-01: Fix the three things in this object that do not match that description.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: db-retain
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
