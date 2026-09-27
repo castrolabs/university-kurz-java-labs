@@ -1,0 +1,40 @@
+# A stateless web app with 2 replicas. It must keep serving at full capacity during every rollout,
+# including a rollout of an image that turns out to be broken.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: example
+spec:
+  replicas: 2
+  # TODO-00: Someone tuned the rollout to "save resources": no extra Pod, one Pod may go down.
+  #          When a new image fails to start, the Service loses half its capacity. Change the numbers so
+  #          a rollout never goes below 2 available Pods.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.37
+          command: ["sh", "-c", "mkdir -p /www && echo ok > /www/index.html && exec httpd -f -p 8080 -h /www"]
+          readinessProbe:
+            httpGet: {path: /, port: 8080}
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: example
+spec:
+  selector: {app: web}
+  ports:
+    - {port: 80, targetPort: 8080}

@@ -1,0 +1,21 @@
+# A scheduler that must never run twice at the same time (two instances would fire every job twice).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singleton
+  namespace: example
+spec:
+  replicas: 1
+  # TODO-01: With the default strategy the new Pod starts while the old one is still running.
+  #          Choose the strategy that stops the old Pod before starting the new one.
+  selector:
+    matchLabels: {app: singleton}
+  template:
+    metadata:
+      labels: {app: singleton}
+    spec:
+      terminationGracePeriodSeconds: 3
+      containers:
+        - name: scheduler
+          image: busybox:1.37
+          command: ["sleep", "3600"]
