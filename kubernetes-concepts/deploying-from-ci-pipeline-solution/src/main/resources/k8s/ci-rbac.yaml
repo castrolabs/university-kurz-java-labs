@@ -1,0 +1,29 @@
+# The pipeline's identity in the cluster. The test gives the pipeline a kubeconfig with a token for
+# this ServiceAccount and nothing else.
+apiVersion: v1
+kind: Namespace
+metadata: {name: shop}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: ci-deployer, namespace: shop}
+---
+# Exactly what deploy.sh uses, in shop only: apply/set image (get, create, patch deployments),
+# rollout status (watch deployments), rollout undo (list ReplicaSets to find the previous revision).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: ci-deployer, namespace: shop}
+rules:
+  - apiGroups: [apps]
+    resources: [deployments]
+    verbs: [get, list, watch, create, patch, update]
+  - apiGroups: [apps]
+    resources: [replicasets]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: ci-deployer, namespace: shop}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: ci-deployer}
+subjects:
+  - {kind: ServiceAccount, name: ci-deployer, namespace: shop}

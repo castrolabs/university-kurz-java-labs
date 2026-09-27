@@ -1,0 +1,18 @@
+# The pipeline's identity in the cluster. The test gives the pipeline a kubeconfig with a token for
+# this ServiceAccount and nothing else.
+apiVersion: v1
+kind: Namespace
+metadata: {name: shop}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: ci-deployer, namespace: shop}
+---
+# TODO-01: Deploying works, but a leaked CI token would own the whole cluster. Give the pipeline only
+#          what deploy.sh needs, in shop only. (Hint: "kubectl rollout undo" also reads ReplicaSets.)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: ci-deployer}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: cluster-admin}
+subjects:
+  - {kind: ServiceAccount, name: ci-deployer, namespace: shop}

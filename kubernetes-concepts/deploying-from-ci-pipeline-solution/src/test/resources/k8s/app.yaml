@@ -1,0 +1,17 @@
+# Given: the app's manifest, as the repository holds it. The pipeline sets the image of each release.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: web, namespace: shop}
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector: {matchLabels: {app: web}}
+  template:
+    metadata: {labels: {app: web}}
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - name: web
+          image: busybox:1.37
+          command: ["sleep", "infinity"]
