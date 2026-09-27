@@ -1,0 +1,13 @@
+# Given: a Pod created later, which no node can fit.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: report
+  namespace: shop
+spec:
+  containers:
+    - name: report
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      resources:
+        requests: {memory: 100Gi}

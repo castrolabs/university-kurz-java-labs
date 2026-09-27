@@ -233,6 +233,8 @@
         <module>kubernetes-concepts/deleting-pods-scaling-and-stuck-namespaces-solution</module>
         <module>kubernetes-concepts/rollouts-restart-history-and-rollback</module>
         <module>kubernetes-concepts/rollouts-restart-history-and-rollback-solution</module>
+        <module>kubernetes-concepts/kubernetes-events</module>
+        <module>kubernetes-concepts/kubernetes-events-solution</module>
     </modules>
 
     <properties>
