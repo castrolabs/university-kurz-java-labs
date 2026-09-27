@@ -269,6 +269,8 @@
         <module>kubernetes-concepts/kustomize-bases-overlays-and-components-solution</module>
         <module>kubernetes-concepts/kustomize-images-one-image-many-roles</module>
         <module>kubernetes-concepts/kustomize-images-one-image-many-roles-solution</module>
+        <module>kubernetes-concepts/kubernetes-secrets-fundamentals</module>
+        <module>kubernetes-concepts/kubernetes-secrets-fundamentals-solution</module>
     </modules>
 
     <properties>
