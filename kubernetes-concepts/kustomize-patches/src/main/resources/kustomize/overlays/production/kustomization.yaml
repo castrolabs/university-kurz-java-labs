@@ -1,0 +1,20 @@
+namespace: example
+resources:
+  - ../../base
+  - worker-secrets.yaml
+patches:
+  # TODO-00: Every Deployment must get TZ=UTC. This JSON 6902 patch appends to the env list, which
+  #          only web has, so the whole build fails. Make it work for all three Deployments without
+  #          adding an env list to the base (hint: a strategic merge patch merges env by name).
+  - target: {kind: Deployment}
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: {name: TZ, value: UTC}
+  - path: worker-secrets-patch.yaml
+  # TODO-02: Every worker (label role=worker) needs 3 replicas, including ones added to the base later.
+  - target: {kind: Deployment, name: worker}
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3

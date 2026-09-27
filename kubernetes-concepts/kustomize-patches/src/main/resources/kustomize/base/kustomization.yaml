@@ -1,0 +1,5 @@
+resources:
+  - deployments.yaml
+configMapGenerator:
+  - name: app-config
+    literals: [LOG_LEVEL=info]

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels: {role: web}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.37
+          command: ["sleep", "3600"]
+          env:
+            - {name: PORT, value: "8080"}
+          envFrom:
+            - configMapRef: {name: app-config}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels: {role: worker}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: worker}
+  template:
+    metadata:
+      labels: {app: worker}
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.37
+          command: ["sleep", "3600"]
+          envFrom:
+            - configMapRef: {name: app-config}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-emails
+  labels: {role: worker}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: worker-emails}
+  template:
+    metadata:
+      labels: {app: worker-emails}
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.37
+          command: ["sleep", "3600"]
+          envFrom:
+            - configMapRef: {name: app-config}

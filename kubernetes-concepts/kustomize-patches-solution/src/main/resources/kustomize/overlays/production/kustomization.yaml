@@ -1,0 +1,26 @@
+namespace: example
+resources:
+  - ../../base
+  - worker-secrets.yaml
+patches:
+  # Strategic merge: containers are merged by name and env by name, so this adds TZ whether or not
+  # the container already has an env list. With a target, metadata.name is ignored for matching.
+  - target: {kind: Deployment}
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: {name: any}
+      spec:
+        template:
+          spec:
+            containers:
+              - name: app
+                env:
+                  - {name: TZ, value: UTC}
+  - path: worker-secrets-patch.yaml
+  # Selecting by label covers every current and future worker.
+  - target: {kind: Deployment, labelSelector: role=worker}
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
