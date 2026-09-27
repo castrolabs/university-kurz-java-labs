@@ -1,0 +1,47 @@
+# A tiny notes service that appends one line to /data/notes.txt every time it starts.
+# Its data must survive Pod restarts and an accidental "kubectl delete pvc".
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-retain
+provisioner: rancher.io/local-path        # k3s's built-in node-local provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain                      # the PV becomes Released, the data stays
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: notes-data
+  namespace: example
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: local-retain           # must name an existing StorageClass (and is immutable)
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes
+  namespace: example
+spec:
+  replicas: 1
+  strategy: {type: Recreate}
+  selector:
+    matchLabels: {app: notes}
+  template:
+    metadata:
+      labels: {app: notes}
+    spec:
+      containers:
+        - name: notes
+          image: busybox:1.37
+          command: ["sh", "-c", "echo \"started $(hostname)\" >> /data/notes.txt && sleep 3600"]
+          volumeMounts:
+            - name: data
+              mountPath: /data                    # where the app actually writes
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: notes-data

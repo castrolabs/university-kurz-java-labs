@@ -209,6 +209,8 @@
         <module>kubernetes-concepts/kustomize-generators-and-hash-suffix-solution</module>
         <module>kubernetes-concepts/kustomize-patches</module>
         <module>kubernetes-concepts/kustomize-patches-solution</module>
+        <module>kubernetes-concepts/persistent-volumes-and-storageclasses</module>
+        <module>kubernetes-concepts/persistent-volumes-and-storageclasses-solution</module>
     </modules>
 
     <properties>
