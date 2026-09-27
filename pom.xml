@@ -243,6 +243,8 @@
         <module>kubernetes-concepts/image-pull-secrets-and-pull-policy-solution</module>
         <module>kubernetes-concepts/kubectl-exec-and-port-forward</module>
         <module>kubernetes-concepts/kubectl-exec-and-port-forward-solution</module>
+        <module>kubernetes-concepts/pod-lifecycle-and-status</module>
+        <module>kubernetes-concepts/pod-lifecycle-and-status-solution</module>
     </modules>
 
     <properties>

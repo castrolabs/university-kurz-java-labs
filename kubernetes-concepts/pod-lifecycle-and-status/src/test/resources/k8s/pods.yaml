@@ -1,0 +1,59 @@
+# Given: one Pod in each situation. The comment says what the script must print for it.
+apiVersion: v1
+kind: Pod
+metadata: {name: ok, namespace: lab}                 # ready
+spec:
+  containers:
+    - {name: app, image: busybox:1.37, command: ["sleep", "3600"]}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: warming-up, namespace: lab}         # not-ready
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      readinessProbe:
+        exec: {command: ["test", "-f", "/tmp/ready"]}
+        periodSeconds: 2
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: too-big, namespace: lab}            # unschedulable
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]
+      resources: {requests: {memory: 100Gi}}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: bad-image, namespace: lab}          # image-pull
+spec:
+  containers:
+    - {name: app, image: "busybox:0.0-does-not-exist"}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: crashing, namespace: lab}           # crash-loop
+spec:
+  containers:
+    - {name: app, image: busybox:1.37, command: ["false"]}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: batch-done, namespace: lab}         # succeeded
+spec:
+  restartPolicy: Never
+  containers:
+    - {name: app, image: busybox:1.37, command: ["true"]}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: batch-failed, namespace: lab}       # failed
+spec:
+  restartPolicy: Never
+  containers:
+    - {name: app, image: busybox:1.37, command: ["false"]}
