@@ -1,0 +1,51 @@
+# Alloy's pipeline: find Pods, give their log streams labels, read their logs through the API server,
+# mask secrets, and push them to Loki.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alloy-config
+  namespace: logging
+data:
+  config.alloy: |
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+
+    // Labels are the index: keep them few and low-cardinality (namespace, pod, container), never
+    // values like user IDs.
+    discovery.relabel "pods" {
+      targets = discovery.kubernetes.pods.targets
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        target_label  = "namespace"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        target_label  = "pod"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_name"]
+        target_label  = "container"
+      }
+    }
+
+    loki.source.kubernetes "pods" {
+      targets    = discovery.relabel.pods.output
+      forward_to = [loki.process.mask.receiver]
+    }
+
+    // Runs inside the cluster, before anything is sent: what Loki never receives cannot leak from it.
+    loki.process "mask" {
+      stage.replace {
+        expression = "password=(\\S+)"
+        replace    = "****"
+      }
+      forward_to = [loki.write.default.receiver]
+    }
+
+    // The push API has its own path; the base URL alone answers 404.
+    loki.write "default" {
+      endpoint {
+        url = "http://loki.logging:3100/loki/api/v1/push"
+      }
+    }

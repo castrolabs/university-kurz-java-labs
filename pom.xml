@@ -261,6 +261,8 @@
         <module>kubernetes-concepts/prometheus-grafana-and-servicemonitors-solution</module>
         <module>kubernetes-concepts/alertmanager-basic-alerts</module>
         <module>kubernetes-concepts/alertmanager-basic-alerts-solution</module>
+        <module>kubernetes-concepts/centralized-logs-loki-alloy</module>
+        <module>kubernetes-concepts/centralized-logs-loki-alloy-solution</module>
     </modules>
 
     <properties>

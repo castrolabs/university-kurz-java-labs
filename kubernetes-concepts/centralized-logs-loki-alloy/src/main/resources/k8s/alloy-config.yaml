@@ -1,0 +1,39 @@
+# Alloy's pipeline: find Pods, give their log streams labels, read their logs through the API server,
+# and push them to Loki.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alloy-config
+  namespace: logging
+data:
+  config.alloy: |
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+
+    // TODO-01: Queries select logs by labels, and the team searches by namespace: {namespace="shop"}.
+    discovery.relabel "pods" {
+      targets = discovery.kubernetes.pods.targets
+      rule {
+        source_labels = ["__meta_kubernetes_pod_name"]
+        target_label  = "pod"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_container_name"]
+        target_label  = "container"
+      }
+    }
+
+    // TODO-02: The checkout app logs passwords. They must not leave the cluster: replace each password
+    //          with "****" before the logs are sent (hint: a loki.process component between these two).
+    loki.source.kubernetes "pods" {
+      targets    = discovery.relabel.pods.output
+      forward_to = [loki.write.default.receiver]
+    }
+
+    // TODO-00: Nothing reaches Loki. Alloy's own logs say why.
+    loki.write "default" {
+      endpoint {
+        url = "http://loki.logging:3100"
+      }
+    }

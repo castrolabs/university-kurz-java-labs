@@ -1,0 +1,107 @@
+# Given: Loki (single binary, local storage) and Alloy, which reads your config from the ConfigMap
+# "alloy-config". Plus an app in "shop" that logs, and a client to query Loki from.
+apiVersion: v1
+kind: Namespace
+metadata: {name: logging}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: loki-config, namespace: logging}
+data:
+  config.yaml: |
+    auth_enabled: false
+    server:
+      http_listen_port: 3100
+    common:
+      path_prefix: /tmp/loki
+      replication_factor: 1
+      ring:
+        kvstore: {store: inmemory}
+      storage:
+        filesystem: {chunks_directory: /tmp/loki/chunks, rules_directory: /tmp/loki/rules}
+    schema_config:
+      configs:
+        - {from: "2024-01-01", store: tsdb, object_store: filesystem, schema: v13, index: {prefix: index_, period: 24h}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: loki, namespace: logging}
+spec:
+  selector: {matchLabels: {app: loki}}
+  template:
+    metadata: {labels: {app: loki}}
+    spec:
+      containers:
+        - name: loki
+          image: mirror.gcr.io/grafana/loki:3.7.8
+          args: ["-config.file=/etc/loki/config.yaml"]
+          ports: [{name: http, containerPort: 3100}]
+          readinessProbe:
+            httpGet: {path: /ready, port: http}
+            periodSeconds: 3
+          volumeMounts: [{name: config, mountPath: /etc/loki}]
+      volumes:
+        - name: config
+          configMap: {name: loki-config}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: loki, namespace: logging}
+spec: {selector: {app: loki}, ports: [{name: http, port: 3100}]}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: alloy, namespace: logging}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: alloy}
+rules:
+  - apiGroups: [""]
+    resources: [pods, pods/log, namespaces, nodes]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: alloy}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: alloy}
+subjects:
+  - {kind: ServiceAccount, name: alloy, namespace: logging}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: alloy, namespace: logging}
+spec:
+  selector: {matchLabels: {app: alloy}}
+  template:
+    metadata: {labels: {app: alloy}}
+    spec:
+      serviceAccountName: alloy
+      containers:
+        - name: alloy
+          image: mirror.gcr.io/grafana/alloy:v1.20.0
+          args: ["run", "/etc/alloy/config.alloy", "--storage.path=/tmp/alloy", "--server.http.listen-addr=0.0.0.0:12345"]
+          volumeMounts: [{name: config, mountPath: /etc/alloy}]
+      volumes:
+        - name: config
+          configMap: {name: alloy-config}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: shop}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: checkout, namespace: shop}
+spec:
+  containers:
+    - name: checkout
+      image: busybox:1.37
+      command: ["sh", "-c", "i=0; while true; do i=$((i+1)); echo \"order $i placed\"; echo \"login user=alice password=hunter2\"; sleep 1; done"]
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: client, namespace: logging}
+spec:
+  containers:
+    - {name: client, image: busybox:1.37, command: ["sleep", "3600"]}
