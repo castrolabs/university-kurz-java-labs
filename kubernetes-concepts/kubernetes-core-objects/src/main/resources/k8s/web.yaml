@@ -1,0 +1,32 @@
+# The team's first deployment: a web server and a Service in front of it, in the namespace "shop".
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shop
+---
+# TODO-00: When this Pod is deleted (a node drain, an eviction, a mistake), nothing brings it back.
+#          Run it through the object that keeps a number of Pods alive, with 2 replicas.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  namespace: shop
+  labels: {app: web}
+spec:
+  containers:
+    - name: web
+      image: busybox:1.37
+      command: ["sh", "-c", "mkdir -p /www && echo \"hello from $HOSTNAME\" > /www/index.html && exec httpd -f -p 8080 -h /www"]
+      ports:
+        - {name: http, containerPort: 8080}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: shop
+spec:
+  # TODO-01: Once there are 2 replicas, every one of them must receive traffic.
+  selector: {app: web, instance: web-0}
+  ports:
+    - {port: 80, targetPort: http}

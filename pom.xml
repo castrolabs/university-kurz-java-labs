@@ -273,6 +273,8 @@
         <module>kubernetes-concepts/kubernetes-secrets-fundamentals-solution</module>
         <module>kubernetes-concepts/deploying-from-ci-pipeline</module>
         <module>kubernetes-concepts/deploying-from-ci-pipeline-solution</module>
+        <module>kubernetes-concepts/kubernetes-core-objects</module>
+        <module>kubernetes-concepts/kubernetes-core-objects-solution</module>
     </modules>
 
     <properties>
