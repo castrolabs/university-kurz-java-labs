@@ -1,0 +1,11 @@
+# A Pod with no securityContext at all: runs as root with default capabilities.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: root-pod
+  namespace: prod
+spec:
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sleep", "3600"]

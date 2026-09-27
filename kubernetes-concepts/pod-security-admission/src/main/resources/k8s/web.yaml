@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      # TODO-01: Once prod enforces "restricted", this Deployment is accepted but no Pod is ever created.
+      #          Find the reason in the ReplicaSet's events and add the securityContext settings the message
+      #          asks for. The app can run as any user (use 1000) and listens on 8080.
+      containers:
+        - name: web
+          image: busybox:1.37
+          command: ["sh", "-c", "mkdir -p /tmp/www && echo ok > /tmp/www/index.html && exec httpd -f -p 8080 -h /tmp/www"]

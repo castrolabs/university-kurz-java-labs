@@ -221,6 +221,8 @@
         <module>kubernetes-concepts/serviceaccount-tokens-and-automount-solution</module>
         <module>kubernetes-concepts/network-policies-default-deny</module>
         <module>kubernetes-concepts/network-policies-default-deny-solution</module>
+        <module>kubernetes-concepts/pod-security-admission</module>
+        <module>kubernetes-concepts/pod-security-admission-solution</module>
     </modules>
 
     <properties>

@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+  # TODO-00: Make the API server reject every Pod in prod that does not meet the "restricted" Pod Security
+  #          Standard. Pin the rules to "latest" and also turn on warn and audit for the same level.
