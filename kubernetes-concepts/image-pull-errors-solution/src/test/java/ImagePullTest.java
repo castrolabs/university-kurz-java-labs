@@ -46,7 +46,7 @@ class ImagePullTest {
     @BeforeAll
     static void deploy() throws Exception {
         registry.start();
-        seed("busybox:1.37", "registry.lab/tools/busybox:1.37");
+        seed("mirror.gcr.io/library/busybox:1.37", "registry.lab/tools/busybox:1.37");
         tags = registry.execInContainer("wget", "--no-check-certificate", "-qO-",
                 "https://localhost/v2/tools/busybox/tags/list").getStdout().trim();
         k3s.start();
