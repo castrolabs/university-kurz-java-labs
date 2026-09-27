@@ -213,6 +213,8 @@
         <module>kubernetes-concepts/persistent-volumes-and-storageclasses-solution</module>
         <module>kubernetes-concepts/volume-permissions-and-fsgroup</module>
         <module>kubernetes-concepts/volume-permissions-and-fsgroup-solution</module>
+        <module>kubernetes-concepts/logical-database-backups-with-kubectl-exec-and-cronjobs</module>
+        <module>kubernetes-concepts/logical-database-backups-with-kubectl-exec-and-cronjobs-solution</module>
     </modules>
 
     <properties>

@@ -1,0 +1,35 @@
+# Nightly logical backup of the "shop" database into the PVC db-backups.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+  namespace: example
+spec:
+  schedule: "30 2 * * *"
+  timeZone: "UTC"
+  concurrencyPolicy: Forbid          # a slow run blocks the next one instead of competing with it
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: backup
+              image: mariadb:11.8
+              env:
+                - name: MYSQL_PWD          # read by the client; never on the command line
+                  valueFrom: {secretKeyRef: {name: db-root, key: password}}
+              # With pipefail a failing mariadb-dump fails the pipeline even though gzip succeeds.
+              command: ["bash", "-euo", "pipefail", "-c"]
+              args:
+                - |
+                  f=/backup/shop-$(date +%F-%H%M%S).sql.gz
+                  mariadb-dump -h db.example.svc.cluster.local -uroot --single-transaction shop | gzip > "$f"
+                  gzip -dc "$f" | tail -1 | grep -q 'Dump completed'   # check the content, not just the format
+                  ls -l /backup
+              volumeMounts:
+                - {name: backup, mountPath: /backup}
+          volumes:
+            - name: backup
+              persistentVolumeClaim: {claimName: db-backups}

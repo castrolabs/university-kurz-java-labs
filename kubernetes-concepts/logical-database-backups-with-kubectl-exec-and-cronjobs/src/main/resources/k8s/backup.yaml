@@ -1,0 +1,36 @@
+# Nightly logical backup of the "shop" database into the PVC db-backups.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+  namespace: example
+spec:
+  schedule: "30 2 * * *"
+  timeZone: "UTC"
+  # TODO-02: A slow backup must never overlap with the next one.
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: backup
+              image: mariadb:11.8
+              # TODO-01: The root password is written in this file (and visible in `ps` inside the container).
+              #          Read it from the Secret db-root (key: password) into the variable MYSQL_PWD, which the
+              #          MariaDB client reads by itself, and remove -p from the command.
+              # TODO-00: Run the tests: with the database down, this backup "succeeds". Make any failing command
+              #          in the pipeline fail the Job (the image's sh does not support pipefail, bash does).
+              command: ["sh", "-ec"]
+              args:
+                - |
+                  f=/backup/shop-$(date +%F-%H%M%S).sql.gz
+                  mariadb-dump -h db.example.svc.cluster.local -uroot -proot-pass --single-transaction shop | gzip > "$f"
+                  gzip -t "$f"
+                  ls -l /backup
+              volumeMounts:
+                - {name: backup, mountPath: /backup}
+          volumes:
+            - name: backup
+              persistentVolumeClaim: {claimName: db-backups}
