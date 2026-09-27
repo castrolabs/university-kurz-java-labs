@@ -1,0 +1,54 @@
+# The workloads under test (given, not part of the exercise).
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: db, namespace: shared, labels: {app: db}}
+spec:
+  containers:
+    - name: db
+      image: busybox:1.37
+      command: ["sh", "-c", "mkdir -p /www && echo db > /www/index.html && exec httpd -f -p 8080 -h /www"]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: db, namespace: shared}
+spec:
+  selector: {app: db}
+  ports: [{port: 8080}]
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: cache, namespace: shared, labels: {app: cache}}
+spec:
+  containers:
+    - name: cache
+      image: busybox:1.37
+      command: ["sh", "-c", "mkdir -p /www && echo cache > /www/index.html && exec httpd -f -p 8080 -h /www"]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: cache, namespace: shared}
+spec:
+  selector: {app: cache}
+  ports: [{port: 8080}]
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: api, namespace: team-a, labels: {app: api}}
+spec:
+  containers:
+    - {name: client, image: busybox:1.37, command: ["sleep", "3600"]}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: client, namespace: team-b, labels: {app: client}}
+spec:
+  containers:
+    - {name: client, image: busybox:1.37, command: ["sleep", "3600"]}
+---
+apiVersion: v1
+kind: Pod
+metadata: {name: impostor, namespace: shared, labels: {app: api}}
+spec:
+  containers:
+    - {name: client, image: busybox:1.37, command: ["sleep", "3600"]}

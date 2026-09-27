@@ -1,0 +1,30 @@
+# Namespace shared runs two services: db and cache (both HTTP on port 8080).
+# Requirements:
+# - Only Pods labelled app=api in namespace team-a may reach db. Nothing else may reach anything in shared.
+# - team-a keeps its default deny for outgoing traffic, but its api Pods must reach db.shared by name.
+
+# team-a: deny all outgoing traffic (given, keep it).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: default-deny-egress, namespace: team-a}
+spec:
+  podSelector: {}
+  policyTypes: [Egress]
+---
+# TODO-01: This rule was meant as "api Pods in team-a". Check how the two selectors are listed: as written,
+#          it also lets in any Pod labelled app=api in namespace shared itself.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: allow-api-to-db, namespace: shared}
+spec:
+  podSelector: {matchLabels: {app: db}}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: team-a}}
+        - podSelector: {matchLabels: {app: api}}
+      ports: [{port: 8080, protocol: TCP}]
+# TODO-00: A NetworkPolicy only restricts the Pods it selects. cache is selected by nothing, so the whole cluster
+#          can reach it. Add a default deny for incoming traffic to every Pod in shared.
+# TODO-02: With egress denied, the api Pods in team-a cannot even resolve db.shared. Allow their DNS queries
+#          (UDP and TCP 53 to the kube-dns Pods in kube-system) and their traffic to db in shared on port 8080.
