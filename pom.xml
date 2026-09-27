@@ -263,6 +263,8 @@
         <module>kubernetes-concepts/alertmanager-basic-alerts-solution</module>
         <module>kubernetes-concepts/centralized-logs-loki-alloy</module>
         <module>kubernetes-concepts/centralized-logs-loki-alloy-solution</module>
+        <module>kubernetes-concepts/kubeconfig-contexts-and-admin-access</module>
+        <module>kubernetes-concepts/kubeconfig-contexts-and-admin-access-solution</module>
     </modules>
 
     <properties>
