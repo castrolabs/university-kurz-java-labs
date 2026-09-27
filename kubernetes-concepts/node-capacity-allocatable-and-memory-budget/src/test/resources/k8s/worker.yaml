@@ -1,0 +1,33 @@
+# Given: a worker that requests 256Mi per replica. It starts with 0 replicas.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: worker}
+spec:
+  replicas: 0
+  selector: {matchLabels: {app: worker}}
+  template:
+    metadata: {labels: {app: worker}}
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - name: worker
+          image: busybox:1.37
+          command: ["sleep", "infinity"]
+          resources:
+            requests: {memory: 256Mi}
+---
+# Given: a database already running on the node, with its own memory request.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: db}
+spec:
+  selector: {matchLabels: {app: db}}
+  template:
+    metadata: {labels: {app: db}}
+    spec:
+      containers:
+        - name: db
+          image: busybox:1.37
+          command: ["sleep", "infinity"]
+          resources:
+            requests: {memory: 1Gi}

@@ -1,0 +1,8 @@
+# /etc/rancher/k3s/config.yaml: k3s reads it at startup (the test copies it in before the node starts).
+# Every key is a k3s command-line flag; kubelet-arg passes flags to the kubelet.
+#
+# TODO-00: Right now allocatable equals capacity: workloads may be promised every byte of the node, and
+#          k3s sets no memory eviction threshold. Reserve 512Mi for the system and 256Mi for Kubernetes,
+#          and make the kubelet evict Pods when less than 100Mi is available (keep k3s's disk
+#          thresholds: nodefs.available<5% and imagefs.available<5%).
+kubelet-arg: []
