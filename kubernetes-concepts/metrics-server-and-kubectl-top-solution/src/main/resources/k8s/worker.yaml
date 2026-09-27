@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  # No "replicas": the HPA owns that field. With it here, every apply would reset the scaling.
+  selector:
+    matchLabels: {app: worker}
+  template:
+    metadata:
+      labels: {app: worker}
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.37
+          command: ["sh", "-c", "while :; do :; done"]   # always busy: a CPU-bound job queue
+          # Utilization is usage divided by the request: without a request there is nothing to divide by.
+          resources:
+            requests: {cpu: 100m}
+            limits: {cpu: 200m}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: worker}
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: {type: Utilization, averageUtilization: 50}

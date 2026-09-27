@@ -249,6 +249,8 @@
         <module>kubernetes-concepts/multi-namespace-layout-and-apply-order-solution</module>
         <module>kubernetes-concepts/idempotent-cluster-bootstrap</module>
         <module>kubernetes-concepts/idempotent-cluster-bootstrap-solution</module>
+        <module>kubernetes-concepts/metrics-server-and-kubectl-top</module>
+        <module>kubernetes-concepts/metrics-server-and-kubectl-top-solution</module>
     </modules>
 
     <properties>

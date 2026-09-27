@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  # TODO-01: Once the autoscaler works, every "kubectl apply" of this file undoes its scaling.
+  replicas: 1
+  selector:
+    matchLabels: {app: worker}
+  template:
+    metadata:
+      labels: {app: worker}
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.37
+          command: ["sh", "-c", "while :; do :; done"]   # always busy: a CPU-bound job queue
+          # TODO-00: The autoscaler shows <unknown> for this Deployment. Its conditions say why.
+          #          Keep the worker from taking more than 0.2 CPU.
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: worker}
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: {type: Utilization, averageUtilization: 50}
