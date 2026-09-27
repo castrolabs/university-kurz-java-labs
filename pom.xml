@@ -235,6 +235,8 @@
         <module>kubernetes-concepts/rollouts-restart-history-and-rollback-solution</module>
         <module>kubernetes-concepts/kubernetes-events</module>
         <module>kubernetes-concepts/kubernetes-events-solution</module>
+        <module>kubernetes-concepts/debugging-crashloopbackoff</module>
+        <module>kubernetes-concepts/debugging-crashloopbackoff-solution</module>
     </modules>
 
     <properties>

@@ -1,0 +1,71 @@
+# Three apps, three different reasons for CrashLoopBackOff. The test output shows, for each one, the
+# last state of its container and the logs of the previous run.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+data:
+  database-url: "postgres://db.shared:5432/shop"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: api}
+  template:
+    metadata:
+      labels: {app: api}
+    spec:
+      containers:
+        - name: api
+          image: busybox:1.37
+          # The app refuses to start without DATABASE_URL.
+          command: ["sh", "-c", "[ -n \"${DATABASE_URL:-}\" ] || { echo 'fatal: DATABASE_URL is not set' >&2; exit 1; }; echo \"connected to $DATABASE_URL\"; exec sleep infinity"]
+          # envFrom copies keys as they are ("database-url"); map the key to the name the app reads.
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef: {name: api-config, key: database-url}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: worker}
+  template:
+    metadata:
+      labels: {app: worker}
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.37
+          # One array element per argument: the whole string was taken as the name of the executable.
+          command: ["sh", "-c", "while true; do echo working; sleep 5; done"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: cache}
+  template:
+    metadata:
+      labels: {app: cache}
+    spec:
+      containers:
+        - name: cache
+          image: busybox:1.37
+          # Warms up a 64 MB in-memory cache, then serves it.
+          command: ["awk", "BEGIN { cache = sprintf(\"%64000000s\", \"\"); print \"cache warm\"; fflush(); while (1) system(\"sleep 60\") }"]
+          # The limit covers the whole process: 64 MB of data plus the runtime around it.
+          resources:
+            requests: {memory: 128Mi}
+            limits: {memory: 128Mi}
