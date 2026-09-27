@@ -197,6 +197,8 @@
         <module>kubernetes-concepts/configmaps-and-environment-variables-solution</module>
         <module>kubernetes-concepts/secrets-as-env-vars-vs-mounted-files</module>
         <module>kubernetes-concepts/secrets-as-env-vars-vs-mounted-files-solution</module>
+        <module>kubernetes-concepts/startup-liveness-readiness-probes</module>
+        <module>kubernetes-concepts/startup-liveness-readiness-probes-solution</module>
     </modules>
 
     <properties>

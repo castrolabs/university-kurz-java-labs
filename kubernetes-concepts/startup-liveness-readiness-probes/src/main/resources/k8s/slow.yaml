@@ -1,0 +1,27 @@
+# An app that needs about 40 seconds to start (cold caches, migrations...) before it answers /healthz.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: slow
+  namespace: example
+spec:
+  terminationGracePeriodSeconds: 5
+  containers:
+    - name: app
+      image: busybox:1.37
+      command:
+        - sh
+        - -c
+        - |
+          echo "warming up..."; sleep 40
+          mkdir -p /www && echo ok > /www/healthz
+          exec httpd -f -p 8080 -h /www
+      ports:
+        - {name: http, containerPort: 8080}
+      # TODO-00: This liveness probe kills the container before it ever finishes starting. Keep it exactly as
+      #          it is (it must still catch a hang within about 30 s once the app runs) and add a startupProbe
+      #          on the same endpoint with a budget of at least 60 seconds.
+      livenessProbe:
+        httpGet: {path: /healthz, port: http}
+        periodSeconds: 10
+        failureThreshold: 3

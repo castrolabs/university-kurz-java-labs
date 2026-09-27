@@ -1,0 +1,30 @@
+# An app that needs about 40 seconds to start (cold caches, migrations...) before it answers /healthz.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: slow
+  namespace: example
+spec:
+  terminationGracePeriodSeconds: 5
+  containers:
+    - name: app
+      image: busybox:1.37
+      command:
+        - sh
+        - -c
+        - |
+          echo "warming up..."; sleep 40
+          mkdir -p /www && echo ok > /www/healthz
+          exec httpd -f -p 8080 -h /www
+      ports:
+        - {name: http, containerPort: 8080}
+      # Holds liveness and readiness back until the app answers once: up to 5 s x 24 = 120 s to start.
+      startupProbe:
+        httpGet: {path: /healthz, port: http}
+        periodSeconds: 5
+        failureThreshold: 24
+      # Unchanged: once started, a hang is still detected within 10 s x 3 = 30 s.
+      livenessProbe:
+        httpGet: {path: /healthz, port: http}
+        periodSeconds: 10
+        failureThreshold: 3

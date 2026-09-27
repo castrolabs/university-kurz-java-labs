@@ -1,0 +1,41 @@
+# Two replicas of a web app. VERSION=1 is healthy. The test later rolls out VERSION=2, which starts fine
+# but is broken: it never serves /readyz.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: example
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.37
+          env:
+            - {name: VERSION, value: "1"}
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /www && echo "v$VERSION" > /www/healthz
+              [ "$VERSION" = 1 ] && echo ok > /www/readyz
+              exec httpd -f -p 8080 -h /www
+          ports:
+            - {name: http, containerPort: 8080}
+          # TODO-01: Without a readiness probe a Pod counts as Ready the moment its container starts, so the
+          #          rollout replaces every healthy Pod with a broken one. Add a readinessProbe on /readyz.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: example
+spec:
+  selector: {app: web}
+  ports:
+    - {port: 80, targetPort: http}
