@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a
+---
+# Credentials for registry.lab (user "lab"). Created with:
+#   kubectl create secret docker-registry registry-creds --docker-server=registry.lab \
+#     --docker-username=lab --docker-password=lab-password --dry-run=client -o yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-creds
+  namespace: team-a   # a Pod can only use pull secrets from its own namespace
+type: kubernetes.io/dockerconfigjson
+stringData:
+  .dockerconfigjson: '{"auths":{"registry.lab":{"username":"lab","password":"lab-password","auth":"bGFiOmxhYi1wYXNzd29yZA=="}}}'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: team-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      imagePullSecrets:
+        - name: registry-creds
+      containers:
+        - name: web
+          image: registry.lab/team-a/web:1.0
+          # The tag is mutable, so ask the registry every time a container starts. The layers are still
+          # cached; only the manifest is checked. (Better: immutable tags, or pin the digest.)
+          imagePullPolicy: Always
+          command: ["sleep", "infinity"]

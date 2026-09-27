@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a
+---
+# Credentials for registry.lab (user "lab"). Created with:
+#   kubectl create secret docker-registry registry-creds --docker-server=registry.lab \
+#     --docker-username=lab --docker-password=lab-password --dry-run=client -o yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-creds
+  namespace: default
+type: kubernetes.io/dockerconfigjson
+stringData:
+  .dockerconfigjson: '{"auths":{"registry.lab":{"username":"lab","password":"lab-password","auth":"bGFiOmxhYi1wYXNzd29yZA=="}}}'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: team-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      # TODO-00: registry.lab requires a login. Make the kubelet use the credentials above.
+      # TODO-01: If the Pod still cannot pull, read the Warning events of the Pod carefully.
+      # TODO-02: The team re-pushes the 1.0 tag with hotfixes. After a push, "kubectl rollout restart"
+      #          must run the new image, not the one the node already has.
+      containers:
+        - name: web
+          image: registry.lab/team-a/web:1.0
+          command: ["sleep", "infinity"]

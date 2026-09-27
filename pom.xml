@@ -239,6 +239,8 @@
         <module>kubernetes-concepts/debugging-crashloopbackoff-solution</module>
         <module>kubernetes-concepts/image-pull-errors</module>
         <module>kubernetes-concepts/image-pull-errors-solution</module>
+        <module>kubernetes-concepts/image-pull-secrets-and-pull-policy</module>
+        <module>kubernetes-concepts/image-pull-secrets-and-pull-policy-solution</module>
     </modules>
 
     <properties>
