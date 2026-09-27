@@ -1,0 +1,12 @@
+# Strategic merge: containers and env entries are matched by name, so only LOG_LEVEL changes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  template:
+    spec:
+      containers:
+        - name: web
+          env:
+            - {name: LOG_LEVEL, value: debug}

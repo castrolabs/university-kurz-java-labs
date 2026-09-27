@@ -1,0 +1,9 @@
+# dev: 1 replica, LOG_LEVEL=debug, not scraped, in the namespace shop-dev.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: shop-dev
+namePrefix: dev-
+# TODO-03: dev works, but only because web.yaml is a copy of the base, and copies drift. Build dev on
+#          top of the base and change only what differs.
+resources:
+  - web.yaml

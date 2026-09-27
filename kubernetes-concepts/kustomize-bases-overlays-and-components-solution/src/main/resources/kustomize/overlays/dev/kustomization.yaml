@@ -1,0 +1,9 @@
+# dev: 1 replica, LOG_LEVEL=debug, not scraped, in the namespace shop-dev.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: shop-dev
+namePrefix: dev-
+resources:
+  - ../../base        # everything else comes from the base, so base changes reach dev too
+patches:
+  - path: log-level.yaml

@@ -265,6 +265,8 @@
         <module>kubernetes-concepts/centralized-logs-loki-alloy-solution</module>
         <module>kubernetes-concepts/kubeconfig-contexts-and-admin-access</module>
         <module>kubernetes-concepts/kubeconfig-contexts-and-admin-access-solution</module>
+        <module>kubernetes-concepts/kustomize-bases-overlays-and-components</module>
+        <module>kubernetes-concepts/kustomize-bases-overlays-and-components-solution</module>
     </modules>
 
     <properties>

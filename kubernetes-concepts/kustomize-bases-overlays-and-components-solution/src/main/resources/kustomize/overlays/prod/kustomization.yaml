@@ -1,0 +1,12 @@
+# prod: 3 replicas, LOG_LEVEL=warn, scraped by Prometheus, in the namespace shop-prod.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: shop-prod
+namePrefix: prod-
+resources:
+  - ../../base
+components:            # optional pieces an overlay opts into (kind: Component)
+  - ../../components/metrics
+patches:
+  - path: replicas.yaml
+  - path: log-level.yaml

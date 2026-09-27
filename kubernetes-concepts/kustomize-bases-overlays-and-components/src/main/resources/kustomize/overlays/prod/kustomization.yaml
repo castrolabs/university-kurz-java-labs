@@ -1,0 +1,13 @@
+# prod: 3 replicas, LOG_LEVEL=warn, scraped by Prometheus, in the namespace shop-prod.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: shop-prod
+namePrefix: prod-
+# TODO-00: "kubectl kustomize" refuses this list. A Component is not a resource.
+resources:
+  - ../../base
+  - ../../components/metrics
+# TODO-01: Then this patch matches nothing. Which name does a patch use: before or after namePrefix?
+# TODO-02: prod also needs LOG_LEVEL=warn.
+patches:
+  - path: replicas.yaml

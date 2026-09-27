@@ -1,0 +1,9 @@
+# Adds the Prometheus scrape annotations to every Deployment of the overlay that includes it.
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - target: {kind: Deployment}
+    patch: |-
+      - op: add
+        path: /spec/template/metadata/annotations
+        value: {prometheus.io/scrape: "true", prometheus.io/port: "9102"}

@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web          # patches match the names from the resources, before namePrefix
+spec:
+  replicas: 3
