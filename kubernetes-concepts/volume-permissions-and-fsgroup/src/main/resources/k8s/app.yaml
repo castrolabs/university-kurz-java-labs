@@ -1,0 +1,27 @@
+# A TLS terminator that must run as a non-root user and read its private key from a Secret.
+# The key file must not be readable by "other" users.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: example
+spec:
+  securityContext:
+    runAsNonRoot: true
+    # TODO-00: The container never starts (CreateContainerConfigError). The image's default user is root,
+    #          and runAsNonRoot forbids it. Run the process as user 1000 and group 1000.
+    # TODO-01: Now the app starts and cannot read its key (Permission denied): the file belongs to root with
+    #          mode 0400. Make the volume's files group-owned by group 1000 without making them world readable.
+  containers:
+    - name: app
+      image: busybox:1.37
+      command: ["sh", "-c", "cat /etc/tls/tls.key > /dev/null && echo 'key loaded' && sleep 3600"]
+      volumeMounts:
+        - name: tls
+          mountPath: /etc/tls
+          readOnly: true
+  volumes:
+    - name: tls
+      secret:
+        secretName: app-tls
+        defaultMode: 0400

@@ -211,6 +211,8 @@
         <module>kubernetes-concepts/kustomize-patches-solution</module>
         <module>kubernetes-concepts/persistent-volumes-and-storageclasses</module>
         <module>kubernetes-concepts/persistent-volumes-and-storageclasses-solution</module>
+        <module>kubernetes-concepts/volume-permissions-and-fsgroup</module>
+        <module>kubernetes-concepts/volume-permissions-and-fsgroup-solution</module>
     </modules>
 
     <properties>
