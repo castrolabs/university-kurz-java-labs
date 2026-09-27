@@ -241,6 +241,8 @@
         <module>kubernetes-concepts/image-pull-errors-solution</module>
         <module>kubernetes-concepts/image-pull-secrets-and-pull-policy</module>
         <module>kubernetes-concepts/image-pull-secrets-and-pull-policy-solution</module>
+        <module>kubernetes-concepts/kubectl-exec-and-port-forward</module>
+        <module>kubernetes-concepts/kubectl-exec-and-port-forward-solution</module>
     </modules>
 
     <properties>

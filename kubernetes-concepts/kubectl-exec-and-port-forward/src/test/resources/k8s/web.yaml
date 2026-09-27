@@ -1,0 +1,37 @@
+# Given: nginx from a minimal image, with no shell and no coreutils.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: web}
+  template:
+    metadata:
+      labels: {app: web}
+    spec:
+      containers:
+        - name: nginx
+          image: cgr.dev/chainguard/nginx:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector: {app: web}
+  ports:
+    - port: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+spec:
+  containers:
+    - name: client
+      image: busybox:1.37
+      command: ["sleep", "3600"]
