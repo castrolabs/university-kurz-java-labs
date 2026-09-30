@@ -58,6 +58,14 @@
         <module>spring-concepts/spring-kafka-messaging-solution</module>
         <module>spring-concepts/spring-data-rest-repositories</module>
         <module>spring-concepts/spring-data-rest-repositories-solution</module>
+        <module>spring-concepts/spring-application-events</module>
+        <module>spring-concepts/spring-application-events-solution</module>
+        <module>spring-concepts/spring-modulith-application-modules-and-verification</module>
+        <module>spring-concepts/spring-modulith-application-modules-and-verification-solution</module>
+        <module>spring-concepts/spring-modulith-events-and-publication-registry</module>
+        <module>spring-concepts/spring-modulith-events-and-publication-registry-solution</module>
+        <module>spring-concepts/spring-modulith-testing-and-documentation</module>
+        <module>spring-concepts/spring-modulith-testing-and-documentation-solution</module>
 
         <module>java-concepts/iterator-vs-iterable</module>
         <module>java-concepts/iterator-vs-iterable-solution</module>
