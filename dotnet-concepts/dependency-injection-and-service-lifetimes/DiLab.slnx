@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DiLab/DiLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DiLab.Tests/DiLab.Tests.csproj" />
+  </Folder>
+</Solution>

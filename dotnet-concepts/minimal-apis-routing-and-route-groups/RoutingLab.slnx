@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RoutingLab/RoutingLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RoutingLab.Tests/RoutingLab.Tests.csproj" />
+  </Folder>
+</Solution>
