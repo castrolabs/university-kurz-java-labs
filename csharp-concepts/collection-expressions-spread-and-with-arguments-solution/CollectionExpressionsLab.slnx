@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CollectionExpressionsLab/CollectionExpressionsLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CollectionExpressionsLab.Tests/CollectionExpressionsLab.Tests.csproj" />
+  </Folder>
+</Solution>
