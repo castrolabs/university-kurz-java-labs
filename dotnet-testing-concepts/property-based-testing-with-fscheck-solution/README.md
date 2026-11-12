@@ -1,7 +1,8 @@
 # Property-Based Testing with FsCheck in MSTest 4 (Solution)
 
 Official solution for the `property-based-testing-with-fscheck` lab. Measured with `MSTest` 4.5.3 and `FsCheck`
-3.6.0 on SDK 10.0.100 and the `net10.0` project: 13 tests pass (5 examples and 8 properties, data rows counted).
+3.6.0 on SDK 10.0.100 and the `net10.0` project: 13 tests pass (5 examples, and 8 from `SplitPropertyTests`:
+5 properties, the seed test and 2 refund rows).
 
 ## The bug
 
