@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:11:14.543817+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "I don't know, please contact support."
+        }
+      ],
+      "messageId": "2026-11-12T13:11:14.543817Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:11:14.543817Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:11:14.543817+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 155,
+    "outputTokenCount": 10,
+    "totalTokenCount": 165
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0017221",
+    "total_duration": "00:00:00.4226875",
+    "prompt_eval_duration": "00:00:00.0272890",
+    "eval_duration": "00:00:00.0942650"
+  }
+}

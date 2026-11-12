@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:33.783306+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Return shipping costs 6 EUR for all returns except defective items, where it is free. Since your boots are not defective and you simply do not like them, the return shipping cost is 6 EUR."
+        }
+      ],
+      "messageId": "2026-11-12T13:10:33.783306Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:33.783306Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:33.783306+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 164,
+    "outputTokenCount": 42,
+    "totalTokenCount": 206
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0030627",
+    "total_duration": "00:00:00.5392324",
+    "prompt_eval_duration": "00:00:00.0529570",
+    "eval_duration": "00:00:00.4289760"
+  }
+}

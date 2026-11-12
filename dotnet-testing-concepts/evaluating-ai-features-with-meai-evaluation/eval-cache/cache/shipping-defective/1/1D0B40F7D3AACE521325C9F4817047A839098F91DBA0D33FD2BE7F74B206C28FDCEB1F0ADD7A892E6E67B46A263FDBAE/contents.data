@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:19.381594+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "The customer pays for return shipping if the item arrived broken. Wait, correction: Returns policy states that return shipping is free for defective items. Therefore, Brightside Outdoor pays for return shipping if the item arrived broken."
+        }
+      ],
+      "messageId": "2026-11-12T13:10:19.381594Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:19.381594Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:19.381594+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 160,
+    "outputTokenCount": 44,
+    "totalTokenCount": 204
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0015702",
+    "total_duration": "00:00:00.5237465",
+    "prompt_eval_duration": "00:00:00.0318210",
+    "eval_duration": "00:00:00.4545050"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:44.094138+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "No, sale items can only be exchanged, never refunded."
+        }
+      ],
+      "messageId": "2026-11-12T13:10:44.094138Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:44.094138Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:44.094138+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 160,
+    "outputTokenCount": 13,
+    "totalTokenCount": 173
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0026080",
+    "total_duration": "00:00:00.2393235",
+    "prompt_eval_duration": "00:00:00.0329000",
+    "eval_duration": "00:00:00.1887340"
+  }
+}

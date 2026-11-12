@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:15.630402+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "<S0>Let's think step by step:\n\n1. The QUERY asks: \"How long until my refund arrives?\" This is asking for the time it takes for a refund to appear after a return.\n\n2. The CONTEXT states: \"Refunds go back to the original payment method and take 5 business days to appear.\" This directly answers the time frame for when a refund appears.\n\n3. The RESPONSE says: \"Refunds take 5 business days to appear on your original payment method.\" This matches the information in the CONTEXT exactly.\n\n4. The response is directly relevant to the question, uses only information from the context, and provides a complete and accurate answer without adding or misrepresenting any details.\n\n5. There is no incorrect information, no irrelevant content, and no omission of key details. The answer fully addresses the query with precise information from the context.\n\n6. Therefore, the response meets the definition of Groundedness: 5 (Fully Correct and Complete Response).\n\n</S0>\n<S1>The response accurately and completely answers the query using only information from the context, with no errors or irrelevant content.</S1>\n<S2>5</S2>"
+        }
+      ],
+      "messageId": "2026-11-12T13:10:15.630402Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:15.630402Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:15.630402+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 1269,
+    "outputTokenCount": 238,
+    "totalTokenCount": 1507
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0014700",
+    "total_duration": "00:00:05.7772045",
+    "prompt_eval_duration": "00:00:00.2555590",
+    "eval_duration": "00:00:02.5646190"
+  }
+}

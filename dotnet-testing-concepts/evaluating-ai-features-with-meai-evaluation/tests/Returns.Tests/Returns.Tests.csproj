@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest" Version="4.5.3" />
+    <PackageReference Include="Microsoft.Extensions.AI.Evaluation" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.AI.Evaluation.Quality" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.AI.Evaluation.Reporting" Version="11.0.0" />
+    <PackageReference Include="OllamaSharp" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <Using Include="Microsoft.Extensions.AI" />
+    <Using Include="Microsoft.Extensions.AI.Evaluation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Returns\Returns.csproj" />
+  </ItemGroup>
+
+</Project>
