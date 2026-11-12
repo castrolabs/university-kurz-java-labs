@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BenchLab/BenchLab.csproj" />
+    <Project Path="src/BenchLab.Runner/BenchLab.Runner.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BenchLab.Tests/BenchLab.Tests.csproj" />
+  </Folder>
+</Solution>
