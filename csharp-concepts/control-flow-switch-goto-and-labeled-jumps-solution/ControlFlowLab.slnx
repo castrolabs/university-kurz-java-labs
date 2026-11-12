@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ControlFlowLab/ControlFlowLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ControlFlowLab.Tests/ControlFlowLab.Tests.csproj" />
+  </Folder>
+</Solution>
