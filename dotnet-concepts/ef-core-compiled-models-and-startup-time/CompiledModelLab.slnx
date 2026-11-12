@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CompiledModelLab/CompiledModelLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CompiledModelLab.Tests/CompiledModelLab.Tests.csproj" />
+  </Folder>
+</Solution>
