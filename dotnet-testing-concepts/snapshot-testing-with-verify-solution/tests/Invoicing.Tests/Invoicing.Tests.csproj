@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <!-- Verify.MSTest is pinned to 32.0.0 on purpose. Verify 33 and later fail the build with SponsorCheck error
+       SC021 until the project declares its Open Source Maintenance Fee status. 32.0.0 (2026-08-26) is the last
+       stable release before the fee applies and has no such check. See the README, "About the Verify version". -->
+
+  <ItemGroup>
+    <PackageReference Include="MSTest" Version="4.5.3" />
+    <PackageReference Include="Verify.MSTest" Version="32.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Invoicing\Invoicing.csproj" />
+  </ItemGroup>
+
+</Project>
