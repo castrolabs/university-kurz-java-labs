@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:54.01226+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Tents that have been pitched are considered used and cannot be returned."
+        }
+      ],
+      "messageId": "2026-11-12T13:10:54.01226Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:54.01226Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:54.01226+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 163,
+    "outputTokenCount": 15,
+    "totalTokenCount": 178
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0013325",
+    "total_duration": "00:00:00.5212739",
+    "prompt_eval_duration": "00:00:00.0509630",
+    "eval_duration": "00:00:00.1384480"
+  }
+}

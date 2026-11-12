@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:11:04.275653+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Gift cards are not refundable."
+        }
+      ],
+      "messageId": "2026-11-12T13:11:04.275653Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:11:04.275653Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:11:04.275653+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 158,
+    "outputTokenCount": 8,
+    "totalTokenCount": 166
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0017323",
+    "total_duration": "00:00:00.3964349",
+    "prompt_eval_duration": "00:00:00.0264280",
+    "eval_duration": "00:00:00.0724580"
+  }
+}

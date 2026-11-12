@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:05.988542+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "<S0>Let's think step by step:\n\n1. The query asks: \"How long do I have to return a jacket?\" This is asking for the time frame for returning an item, specifically a jacket.\n\n2. The context states: \"You can return an unused item within 30 days of delivery for a full refund.\" This applies to any unused item, including a jacket.\n\n3. The response says: \"You have 30 days from delivery to return an unused jacket for a full refund.\" This directly answers the query using information from the context.\n\n4. The response does not introduce any incorrect or unrelated information. It correctly identifies the 30-day window and specifies that the jacket must be unused.\n\n5. The response is complete and accurate, fully grounded in the context, and directly addresses the question.\n\n6. According to the definition, a Groundedness: 5 response must fully and accurately respond to the question with precise information from the context, without adding extraneous content.\n\n7. This response meets all criteria for Groundedness: 5.</S0>\n<S1>The response correctly and fully answers the query using only information from the context, without adding or distorting facts.</S1>\n<S2>5</S2>"
+        }
+      ],
+      "messageId": "2026-11-12T13:10:05.988542Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:05.988542Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:05.988542+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 1275,
+    "outputTokenCount": 257,
+    "totalTokenCount": 1532
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0016007",
+    "total_duration": "00:00:06.9769162",
+    "prompt_eval_duration": "00:00:00.9691470",
+    "eval_duration": "00:00:02.4467620"
+  }
+}

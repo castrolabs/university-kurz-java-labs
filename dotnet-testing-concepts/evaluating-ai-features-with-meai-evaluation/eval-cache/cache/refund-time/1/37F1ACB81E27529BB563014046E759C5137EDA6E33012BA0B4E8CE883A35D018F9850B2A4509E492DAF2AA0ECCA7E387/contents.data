@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:10:09.850886+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Refunds take 5 business days to appear on your original payment method."
+        }
+      ],
+      "messageId": "2026-11-12T13:10:09.850886Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:10:09.850886Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:10:09.850886+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 156,
+    "outputTokenCount": 16,
+    "totalTokenCount": 172
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0021385",
+    "total_duration": "00:00:00.2362725",
+    "prompt_eval_duration": "00:00:00.0283980",
+    "eval_duration": "00:00:00.1361620"
+  }
+}

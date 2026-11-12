@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:09:58.957549+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You have 30 days from delivery to return an unused jacket for a full refund."
+        }
+      ],
+      "messageId": "2026-11-12T13:09:58.957549Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:09:58.957549Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:09:58.957549+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 159,
+    "outputTokenCount": 19,
+    "totalTokenCount": 178
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0057900",
+    "total_duration": "00:00:00.4129624",
+    "prompt_eval_duration": "00:00:00.1583030",
+    "eval_duration": "00:00:00.1741610"
+  }
+}

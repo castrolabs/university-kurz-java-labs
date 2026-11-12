@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "createdAt": "2026-11-12T13:11:22.919767+00:00",
+      "role": "assistant",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "<S0>\nLet's think step by step:\n\n1. The query \"Do you ship to Norway?\" is a straightforward question asking about shipping availability to a specific country.\n2. The response \"I don't know, please contact support\" acknowledges uncertainty but does not directly address the question with a logical or structured explanation.\n3. The response lacks a clear train of thought—there is no logical progression of ideas, no explanation of why the answer is \"I don't know,\" and no connection between the response and the query.\n4. While the response is not entirely incoherent (it contains a meaningful phrase and a suggestion for action), it fails to present a coherent, organized, or logical flow of ideas.\n5. It does not explain the reasoning behind the answer, nor does it provide any structured or transitional elements to guide the reader.\n6. The response is minimal and does not build upon or connect ideas in a way that makes the message easy to follow.\n7. Based on the definition of \"Partially Coherent Response,\" which includes some relevant information but with unclear connections and abrupt transitions, this response fits that category because it contains a relevant keyword (\"don't know\") and a suggestion, but lacks logical flow and explanation.\n8. It does not meet the standards of a \"Coherent\" or \"Highly Coherent\" response because there is no clear structure, transition, or elaboration.\n9. Therefore, it falls short of Coherence 4 or 5 and is not fully coherent in its logical flow.\n</S0>\n\n<S1>\nThe response provides a minimal and vague answer without logical structure or clear connections to the question, making it difficult to understand and follow.\n</S1>\n\n<S2>3</S2>"
+        }
+      ],
+      "messageId": "2026-11-12T13:11:22.919767Z"
+    }
+  ],
+  "responseId": "2026-11-12T13:11:22.919767Z",
+  "modelId": "qwen3:4b-instruct",
+  "createdAt": "2026-11-12T13:11:22.919767+00:00",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokenCount": 1280,
+    "outputTokenCount": 355,
+    "totalTokenCount": 1635
+  },
+  "additionalProperties": {
+    "load_duration": "00:00:00.0034198",
+    "total_duration": "00:00:08.3738946",
+    "prompt_eval_duration": "00:00:00.2680240",
+    "eval_duration": "00:00:04.3175010"
+  }
+}
