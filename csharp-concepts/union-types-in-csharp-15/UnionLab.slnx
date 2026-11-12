@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/UnionLab/UnionLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/UnionLab.Tests/UnionLab.Tests.csproj" />
+  </Folder>
+</Solution>
