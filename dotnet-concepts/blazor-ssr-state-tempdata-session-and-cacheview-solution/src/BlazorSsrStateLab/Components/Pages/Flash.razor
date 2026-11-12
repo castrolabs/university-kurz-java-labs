@@ -1,0 +1,33 @@
+@page "/flash"
+@inject NavigationManager Nav
+
+<h1>Flash</h1>
+<p id="message">@Shown</p>
+
+<EditForm Model="Model" FormName="flash" OnValidSubmit="Submit" Enhance>
+    <InputText @bind-Value="Model.Text" />
+    <button type="submit">Save</button>
+</EditForm>
+
+@code {
+    // TODO-00: the value written before a redirect arrives here on the next GET.
+    [SupplyParameterFromTempData] private string? Message { get; set; }
+    [SupplyParameterFromForm] private FlashModel Model { get; set; } = default!;
+
+    private string? Shown;
+
+    protected override void OnInitialized()
+    {
+        Model ??= new();
+        Shown = Message;
+        Message = null; // consume it: the property is not deleted just by being read
+    }
+
+    private void Submit()
+    {
+        Message = $"saved {Model.Text}";
+        Nav.NavigateTo("flash");
+    }
+
+    public class FlashModel { public string? Text { get; set; } }
+}

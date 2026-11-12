@@ -1,0 +1,23 @@
+@page "/feed"
+
+<h1>Feed</h1>
+
+<div style="height: 200px; overflow-y: auto">
+    <Virtualize Context="item" ItemsProvider="LoadAsync" ItemSize="20" OverscanCount="3" ItemComparer="StringComparer.Ordinal">
+        <ItemContent><div class="row">@item</div></ItemContent>
+        <Placeholder><div class="row placeholder">...</div></Placeholder>
+    </Virtualize>
+</div>
+
+@code {
+    public const int Total = 10_000;
+    public static List<(int Start, int Count)> Requests { get; } = [];
+
+    private ValueTask<ItemsProviderResult<string>> LoadAsync(ItemsProviderRequest request)
+    {
+        var count = Math.Min(request.Count, Total - request.StartIndex);
+        lock (Requests) Requests.Add((request.StartIndex, count));
+        var items = Enumerable.Range(request.StartIndex, count).Select(i => $"Item {i}");
+        return ValueTask.FromResult(new ItemsProviderResult<string>(items, Total));
+    }
+}

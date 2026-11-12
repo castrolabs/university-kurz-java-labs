@@ -1,0 +1,13 @@
+@page "/products"
+
+<h1>Products</h1>
+
+<QuickGrid Items="Catalog.All" Pagination="pagination">
+    <PropertyColumn Property="p => p.Name" Sortable="true" IsDefaultSortColumn="true" />
+    <PropertyColumn Property="p => p.Price" Sortable="true" />
+</QuickGrid>
+<Paginator State="pagination" />
+
+@code {
+    private readonly PaginationState pagination = new() { ItemsPerPage = 5 };
+}

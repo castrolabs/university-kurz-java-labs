@@ -1,0 +1,11 @@
+@page "/news"
+
+<h1>News</h1>
+<CacheView VaryByQuery="category" ExpiresAfter="TimeSpan.FromMinutes(5)">
+    <p id="stamp">@DateTime.UtcNow.Ticks</p>
+    <p id="category">@(Category ?? "all")</p>
+</CacheView>
+
+@code {
+    [SupplyParameterFromQuery] private string? Category { get; set; }
+}

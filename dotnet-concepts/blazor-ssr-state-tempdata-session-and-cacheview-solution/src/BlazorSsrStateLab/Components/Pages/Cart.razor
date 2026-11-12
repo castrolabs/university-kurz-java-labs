@@ -1,0 +1,26 @@
+@page "/cart"
+@inject NavigationManager Nav
+
+<h1>Cart</h1>
+<p id="items">@(Items ?? "empty")</p>
+
+<EditForm Model="Model" FormName="cart" OnValidSubmit="Add" Enhance>
+    <InputText @bind-Value="Model.Item" />
+    <button type="submit">Add</button>
+</EditForm>
+
+@code {
+    // TODO-02: read and write the session through the property.
+    [SupplyParameterFromSession] private string? Items { get; set; }
+    [SupplyParameterFromForm] private CartModel Model { get; set; } = default!;
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private void Add()
+    {
+        Items = string.IsNullOrEmpty(Items) ? Model.Item : $"{Items},{Model.Item}";
+        Nav.NavigateTo("cart");
+    }
+
+    public class CartModel { public string? Item { get; set; } }
+}
