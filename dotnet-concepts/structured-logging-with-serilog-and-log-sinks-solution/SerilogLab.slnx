@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SerilogLab/SerilogLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SerilogLab.Tests/SerilogLab.Tests.csproj" />
+  </Folder>
+</Solution>
