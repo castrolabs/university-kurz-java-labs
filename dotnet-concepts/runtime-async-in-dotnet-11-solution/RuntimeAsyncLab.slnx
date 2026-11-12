@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RuntimeAsyncLab.Classic/RuntimeAsyncLab.Classic.csproj" />
+    <Project Path="src/RuntimeAsyncLab.RuntimeAsync/RuntimeAsyncLab.RuntimeAsync.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RuntimeAsyncLab.Tests/RuntimeAsyncLab.Tests.csproj" />
+  </Folder>
+</Solution>
