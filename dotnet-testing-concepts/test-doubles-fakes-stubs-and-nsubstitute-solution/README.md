@@ -30,7 +30,7 @@ Official solution for the `test-doubles-fakes-stubs-and-nsubstitute` lab.
 
 ## Bonus notes
 
-Mutation check, run against this solution (MSTest 4.5.1, NSubstitute 6.2.0). Each change to
+Mutation check, run against this solution (MSTest 4.5.2, NSubstitute 6.2.0). Each change to
 `src/Notifications` was applied on its own and then reverted:
 
 | Change to the production code | Tests that fail |

@@ -4,7 +4,7 @@ Official solution for the `testing-blazor-components-with-bunit` lab.
 
 ## What changed from the starter
 
-- **The test classes inherit `BunitContext`** (bUnit 2.11.3). In bUnit 1.x the class was called
+- **The test classes inherit `BunitContext`** (bUnit 2.15.2). In bUnit 1.x the class was called
   `TestContext`, and a test file that imports both namespaces does not compile:
   `CS0104: 'TestContext' is an ambiguous reference between 'Bunit.TestContext' and
   'Microsoft.VisualStudio.TestTools.UnitTesting.TestContext'`. bUnit 2 renamed it. MSTest creates one instance

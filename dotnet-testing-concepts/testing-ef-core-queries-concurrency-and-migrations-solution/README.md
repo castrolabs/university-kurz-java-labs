@@ -39,9 +39,9 @@ once the `postgres:18-alpine` image is pulled).
   fits the model. `TheModelHasNoChangesMissingAMigration` calls `HasPendingModelChanges()` (EF Core 8 and
   later); it compares the model with the last snapshot and never opens the connection.
 - **`Ordering.csproj` pins `Microsoft.EntityFrameworkCore.Relational`.** Npgsql 10.0.3 depends on EF Core
-  10.0.4, and the newest `Microsoft.EntityFrameworkCore.Design` pulls 10.0.13. With `PrivateAssets=all`
+  10.0.4, and the newest `Microsoft.EntityFrameworkCore.Design` pulls 10.0.15. With `PrivateAssets=all`
   the higher version stays in `Ordering` and the test project fails with CS1705 (a referenced assembly
-  needs a higher version). One explicit reference lifts both projects to 10.0.13.
+  needs a higher version). One explicit reference lifts both projects to 10.0.15.
 
 ## Bonus notes
 
