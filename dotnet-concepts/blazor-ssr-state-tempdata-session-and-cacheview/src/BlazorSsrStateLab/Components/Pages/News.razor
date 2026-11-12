@@ -1,0 +1,10 @@
+@page "/news"
+
+<h1>News</h1>
+@* TODO-03: cache this block for 5 minutes, one entry per value of the category query string. *@
+    <p id="stamp">@DateTime.UtcNow.Ticks</p>
+    <p id="category">@(Category ?? "all")</p>
+
+@code {
+    [SupplyParameterFromQuery] private string? Category { get; set; }
+}

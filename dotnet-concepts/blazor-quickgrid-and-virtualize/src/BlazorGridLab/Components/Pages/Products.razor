@@ -1,0 +1,10 @@
+@page "/products"
+
+<h1>Products</h1>
+
+@* TODO-00: show 5 products per page with a Paginator (PaginationState) and make Name and Price sortable,
+   Name being the default sort column. TODO-01 and TODO-02 then come from the URL. *@
+<QuickGrid Items="Catalog.All">
+    <PropertyColumn Property="p => p.Name" />
+    <PropertyColumn Property="p => p.Price" />
+</QuickGrid>

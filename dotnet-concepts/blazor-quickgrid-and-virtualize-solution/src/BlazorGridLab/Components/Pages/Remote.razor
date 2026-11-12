@@ -1,0 +1,24 @@
+@page "/remote"
+@inject ProductService Service
+
+<h1>Remote</h1>
+
+<QuickGrid ItemsProvider="provider" Pagination="pagination">
+    <PropertyColumn Property="p => p.Name" Sortable="true" />
+    <PropertyColumn Property="p => p.Price" Sortable="true" />
+</QuickGrid>
+<Paginator State="pagination" />
+
+@code {
+    private readonly PaginationState pagination = new() { ItemsPerPage = 5 };
+    private GridItemsProvider<Product>? provider;
+
+    protected override void OnInitialized()
+    {
+        provider = async request =>
+        {
+            var page = await Service.QueryAsync(request.StartIndex, request.Count ?? 5, request.GetSortByProperties());
+            return GridItemsProviderResult.From(page.Items, page.Total);
+        };
+    }
+}

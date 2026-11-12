@@ -1,0 +1,24 @@
+@page "/remote"
+@inject ProductService Service
+
+<h1>Remote</h1>
+
+@* TODO-03: the provider must ask the service for the requested slice only (request.StartIndex, request.Count,
+   request.GetSortByProperties()) and the grid must be paginated, 5 per page. *@
+<QuickGrid ItemsProvider="provider">
+    <PropertyColumn Property="p => p.Name" Sortable="true" />
+    <PropertyColumn Property="p => p.Price" Sortable="true" />
+</QuickGrid>
+
+@code {
+    private GridItemsProvider<Product>? provider;
+
+    protected override void OnInitialized()
+    {
+        provider = async request =>
+        {
+            var page = await Service.QueryAsync(0, int.MaxValue, []);
+            return GridItemsProviderResult.From(page.Items, page.Total);
+        };
+    }
+}
