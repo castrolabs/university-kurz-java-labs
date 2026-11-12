@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasks</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 2rem auto; padding: 0 1rem; }
+    li { display: flex; gap: .5rem; align-items: center; margin: .25rem 0; }
+    li.done span { text-decoration: line-through; color: #777; }
+    [role="alert"] { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Tasks</h1>
+
+  <form id="new-task-form">
+    <label for="title">New task</label>
+    <input id="title" name="title" autocomplete="off">
+    <button type="submit">Add task</button>
+  </form>
+
+  <p id="error" role="alert" hidden></p>
+  <p id="loading">Loading tasks...</p>
+  <ul id="task-list" aria-label="Task list" hidden></ul>
+  <p id="open-count" data-testid="open-count"></p>
+
+  <script>
+    const list = document.getElementById('task-list');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const openCount = document.getElementById('open-count');
+
+    function showError(message) { error.textContent = message; error.hidden = false; }
+    function clearError() { error.hidden = true; error.textContent = ''; }
+
+    function render(tasks) {
+      list.replaceChildren(...tasks.map(task => {
+        const li = document.createElement('li');
+        li.className = task.done ? 'done' : '';
+
+        const box = document.createElement('input');
+        box.type = 'checkbox';
+        box.checked = task.done;
+        box.setAttribute('aria-label', 'Done: ' + task.title);
+        box.addEventListener('change', () => toggle(task.id));
+
+        const title = document.createElement('span');
+        title.textContent = task.title;
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.textContent = 'Delete';
+        remove.setAttribute('aria-label', 'Delete ' + task.title);
+        remove.addEventListener('click', () => removeTask(task.id));
+
+        li.append(box, title, remove);
+        return li;
+      }));
+      const open = tasks.filter(t => !t.done).length;
+      openCount.textContent = open + ' open';
+      loading.hidden = true;
+      list.hidden = false;
+    }
+
+    async function load() {
+      try {
+        const response = await fetch('/api/tasks');
+        if (!response.ok) throw new Error('status ' + response.status);
+        render(await response.json());
+      } catch {
+        loading.hidden = true;
+        showError('Could not load tasks.');
+      }
+    }
+
+    async function toggle(id) {
+      await fetch('/api/tasks/' + id + '/toggle', { method: 'POST' });
+      await load();
+    }
+
+    async function removeTask(id) {
+      await fetch('/api/tasks/' + id, { method: 'DELETE' });
+      await load();
+    }
+
+    document.getElementById('new-task-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      clearError();
+      const input = document.getElementById('title');
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: input.value })
+      });
+      if (!response.ok) {
+        const problem = await response.json();
+        showError(Object.values(problem.errors ?? {}).flat().join(' ') || 'Could not add the task.');
+        return;
+      }
+      input.value = '';
+      await load();
+    });
+
+    load();
+  </script>
+</body>
+</html>
