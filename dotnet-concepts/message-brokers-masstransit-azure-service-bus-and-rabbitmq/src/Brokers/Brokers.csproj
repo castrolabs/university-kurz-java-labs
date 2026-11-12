@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 8.5.12 is the last Apache-2.0 release. v9 is commercial and needs a license key. Do not bump the major. -->
+    <PackageReference Include="MassTransit" Version="8.5.12" />
+  </ItemGroup>
+
+</Project>
