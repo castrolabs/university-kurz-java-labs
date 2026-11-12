@@ -32,7 +32,7 @@ Official solution for the `controlling-time-with-timeprovider` lab.
   `DateTimeOffset.UtcNow` turns two token tests red with the fixed start. With the fake started at
   `DateTimeOffset.UtcNow` instead, those two go green and only the "expires exactly at 15 minutes" test
   still notices.
-- Mutation check, run against this solution (MSTest 4.5.1, Microsoft.Extensions.TimeProvider.Testing
+- Mutation check, run against this solution (MSTest 4.5.2, Microsoft.Extensions.TimeProvider.Testing
   10.11.0). Each change to `src/Accounts` was applied on its own and then reverted:
 
 | Change to the production code | Tests that fail |

@@ -30,7 +30,7 @@ Run `dotnet test` once before you change anything. It runs on VSTest, the defaul
 Complete the following TODOs:
 
 - TODO-00: Move to MTP. In `tests/Checkout.Tests/Checkout.Tests.csproj`, replace `Sdk="Microsoft.NET.Sdk"`
-  with `Sdk="MSTest.Sdk/4.5.1"` and delete the `MSTest` `PackageReference` and the `Using` item (MSTest.Sdk
+  with `Sdk="MSTest.Sdk/4.5.2"` and delete the `MSTest` `PackageReference` and the `Using` item (MSTest.Sdk
   brings both). Then create `global.json` next to `CheckoutLab.slnx`:
 
   ```json

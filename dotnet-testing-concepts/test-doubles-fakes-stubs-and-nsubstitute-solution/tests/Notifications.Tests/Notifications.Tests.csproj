@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest" Version="4.5.1" />
+    <PackageReference Include="MSTest" Version="4.5.2" />
     <PackageReference Include="NSubstitute" Version="6.2.0" />
     <!-- Build-time checks for NSubstitute misuse, such as configuring a member it cannot intercept. -->
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" PrivateAssets="all" />

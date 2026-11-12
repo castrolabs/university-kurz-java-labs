@@ -4,7 +4,7 @@ Official solution for the `microsoft-testing-platform-and-dotnet-test` lab.
 
 ## What changed from the starter
 
-- **The runner.** `tests/Checkout.Tests/Checkout.Tests.csproj` uses `Sdk="MSTest.Sdk/4.5.1"`, which brings
+- **The runner.** `tests/Checkout.Tests/Checkout.Tests.csproj` uses `Sdk="MSTest.Sdk/4.5.2"`, which brings
   MSTest, the analyzers and the MTP runner, and whose `Default` extension profile adds Microsoft Code
   Coverage and the TRX report. `global.json` selects the MTP mode of `dotnet test` (.NET 10 SDK and later).
   With only the `global.json` and the old project, `dotnet test` stops with "global.json defines test runner

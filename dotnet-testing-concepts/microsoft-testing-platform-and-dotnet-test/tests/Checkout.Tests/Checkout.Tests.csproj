@@ -1,5 +1,5 @@
 <!-- TODO-00: this project runs on VSTest, the default of dotnet test. Move it to Microsoft.Testing.Platform:
-     replace Sdk="Microsoft.NET.Sdk" with Sdk="MSTest.Sdk/4.5.1", remove the MSTest PackageReference and the
+     replace Sdk="Microsoft.NET.Sdk" with Sdk="MSTest.Sdk/4.5.2", remove the MSTest PackageReference and the
      Using item (MSTest.Sdk adds both), and add a global.json next to CheckoutLab.slnx that selects the runner.
      The README has the exact JSON. -->
 <Project Sdk="Microsoft.NET.Sdk">
@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest" Version="4.5.1" />
+    <PackageReference Include="MSTest" Version="4.5.2" />
   </ItemGroup>
 
   <ItemGroup>
