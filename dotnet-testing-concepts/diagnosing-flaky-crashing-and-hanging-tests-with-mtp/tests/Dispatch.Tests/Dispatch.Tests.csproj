@@ -1,0 +1,15 @@
+<!-- TODO-00: MSTest.Sdk loads only the Default set of MTP extensions (code coverage and TRX). Add the retry, HTML report,
+     hang dump and crash dump extensions. The README shows two ways: a profile, or one property per extension. -->
+<Project Sdk="MSTest.Sdk/4.5.2">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Dispatch\Dispatch.csproj" />
+  </ItemGroup>
+
+</Project>
