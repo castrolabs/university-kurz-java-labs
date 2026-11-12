@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DecimalLab/DecimalLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DecimalLab.Tests/DecimalLab.Tests.csproj" />
+  </Folder>
+</Solution>
