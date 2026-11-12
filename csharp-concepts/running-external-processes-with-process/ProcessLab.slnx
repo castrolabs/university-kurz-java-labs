@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ProcessLab/ProcessLab.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ProcessLab.Tests/ProcessLab.Tests.csproj" />
+  </Folder>
+</Solution>
