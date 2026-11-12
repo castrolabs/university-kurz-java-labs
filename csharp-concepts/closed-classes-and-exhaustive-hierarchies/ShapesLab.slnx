@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Shapes.Contracts/Shapes.Contracts.csproj" />
+    <Project Path="src/Shapes.App/Shapes.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Shapes.Tests/Shapes.Tests.csproj" />
+  </Folder>
+</Solution>
