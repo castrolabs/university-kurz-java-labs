@@ -1,0 +1,8 @@
+{
+  "stryker-config": {
+    "project": "Shipping.csproj",
+    "test-runner": "mtp",
+    "reporters": ["html", "json", "cleartext"],
+    "thresholds": { "high": 95, "low": 90, "break": 0 }
+  }
+}

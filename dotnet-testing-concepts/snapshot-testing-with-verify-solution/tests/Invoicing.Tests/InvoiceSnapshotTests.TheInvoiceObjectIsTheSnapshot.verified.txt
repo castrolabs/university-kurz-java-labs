@@ -1,0 +1,24 @@
+﻿{
+  Id: Guid_1,
+  Number: INV-{date}-{id},
+  IssuedAt: DateTimeOffset_1,
+  Customer: Ada Lovelace,
+  Lines: [
+    {
+      Product: Coffee,
+      Quantity: 3,
+      UnitPrice: 0.50,
+      Total: 1.50
+    },
+    {
+      Product: Filter paper,
+      Quantity: 1,
+      UnitPrice: 4.00,
+      Total: 4.00
+    }
+  ],
+  Subtotal: 5.50,
+  Tax: 1.05,
+  Total: 6.55,
+  Note: Deliver to the back door
+}

@@ -1,0 +1,5 @@
+﻿{
+  Type: ArgumentException,
+  Message: An invoice needs at least one line.,
+  ParamName: order
+}
